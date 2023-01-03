@@ -2,13 +2,9 @@
 
 int main()
 {
-	std::cout << "숫자를 입력하고 엔터를 누르세요!" << std::endl;
+	int x;
+	x = 10;
 
-	int number;
-
-	std::cin >> number;
-	std::cout << "입력하신 숫자는 ";
-	std::cout << number;
-	std::cout << "입니다!";
+	std::cout << x << " : " << &x << std::endl;
 	
 }
