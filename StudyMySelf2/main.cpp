@@ -4,12 +4,12 @@
 
 int main()
 {
-	std::cout << "이름과 나이를 입력하고 엔터를 누르세요" << std::endl;
+	std::cout << "Input number : ";
 
-	std::string name;
-	int age;
-
-	std::cin >> name >> age;
-
-	std::cout << "hello, " << name << "(" << age << ")" << std::endl;
+	int number{ 0 };
+	std::cin >> number;
+	std::cout << "number is " << number << std::endl
+		<< "number + 1 is " << number + 1 << std::endl
+		<< "number mutiply 3 is " << number * 3 << std::endl
+		<< "number's square is " << number * number << std::endl;
 }
