@@ -4,12 +4,22 @@
 
 int main()
 {
-	std::cout << "Input number : ";
+	int alpha{ 255 }, red{ 255 }, green{ 0 }, blue{ 0 };
 
-	int number{ 0 };
-	std::cin >> number;
-	std::cout << "number is " << number << std::endl
-		<< "number + 1 is " << number + 1 << std::endl
-		<< "number mutiply 3 is " << number * 3 << std::endl
-		<< "number's square is " << number * number << std::endl;
+	unsigned int color;
+
+	color = alpha << 24 | red << 16 | green << 8 | blue;
+
+	std::cout << std::hex;
+	std::cout << color << std::endl;
+
+	alpha = color >> 24;
+	red = color >> 16 & 0xFF;
+	green = color >> 8 & 0xFF;
+	blue = color & 0xFF;
+
+	std::cout << alpha << ", "
+		<< red << ", "
+		<< green << ", "
+		<< blue << std::endl;
 }
