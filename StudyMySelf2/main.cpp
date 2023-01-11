@@ -1,43 +1,33 @@
 #include <iostream>
 
+void DoWhile()
+{
+	int i{ 1 }, j{ 0 };
+	do
+	{
+		j = j + i;
+		std::cout << i++ << " , " << j << std::endl;
+
+	} while (i <= 10);
+}
+
+void While()
+{
+	int i{ 0 }, j{ 0 };
+
+	while (i < 10)
+	{
+		++i;
+		j += i;
+		std::cout << i << " , " << j << std::endl;
+	}
+}
 
 int main()
 {
-	const int USDTOWON = 1240;
-	const float YENTOWON = 9.46f;
-	const float EUROTOWON = 1340.85f;
-	const float POUNDTOWON = 1518.07f;
-	int money{};
-	char kind;
+	// do while - 조건이 일치하지 않아도 한번은 실행
+	DoWhile();
 
-	std::cout << "달러(S)화, 엔(Y)화, 유로(E)화, 파운드(P)화를 입력하세요 : ";
-	std::cin >> money >> kind;
-
-	switch (kind)
-	{
-		case 'S': case 's':
-			std::cout << money << " USD는 ";
-			std::cout << money * USDTOWON << "원 입니다.";
-			break;
-
-		case 'Y': case 'y':
-			std::cout << money << " JPY는 ";
-			std::cout << money * YENTOWON << "원 입니다.";
-			break;
-
-		case 'E': case 'e':
-			std::cout << money << " EUR는 ";
-			std::cout << money * EUROTOWON << "원 입니다.";
-			break;
-
-		case 'P': case 'p':
-			std::cout << money << " GBP는 ";
-			std::cout << money * POUNDTOWON << "원 입니다.";
-			break;
-
-		default:
-			std::cout << "알 수 없는 화폐 단위입니다.";
-			break;
-	}
-	
+	// while - 조건이 맞지 않으면 한번도 실행하지 않음
+	While();
 }
