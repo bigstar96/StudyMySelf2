@@ -7,10 +7,12 @@ union MyUnion
 	char c;
 };
 
-MyUnion myUnion;
+
 
 int main()
 {
+	MyUnion myUnion;
+
 	myUnion.i = 98;
 	std::cout << myUnion.i << ", " << myUnion.f << ", " << myUnion.c << std::endl;
 
