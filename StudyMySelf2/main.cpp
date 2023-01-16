@@ -1,28 +1,36 @@
 #include <iostream>
 
+void PrintDottedLine()
+{
+	std::cout << "--------------------" << std::endl;
+}
 
+void PrintNumber(int x)
+{
+	std::cout << x << std::endl;
+}
+
+int Square(int x)
+{
+	return x * x;
+}
+
+void PrintNumberNotChange(int x)
+{
+	x = -100;
+	std::cout << x << std::endl;
+}
 
 int main()
 {
-	struct OneByte
-	{
-		char OBChar;
-	};
-	std::cout << sizeof(OneByte) << std::endl;
+	PrintDottedLine();
 
-	struct EightByte
-	{
-		char EBChar;
-		int EBInt;
-	};
-	std::cout << sizeof(EightByte) << std::endl;
+	int x{ 3 };
 
-#pragma pack(push, 1)
-	struct FiveByte
-	{
-		char FBChar;
-		int FBInt;
-	};
-#pragma pack(pop)
-	std::cout << sizeof(FiveByte) << std::endl;
+	PrintNumber(x);
+
+	std::cout << Square(9) << std::endl;
+
+	PrintNumberNotChange(x);
+	std::cout << x << std::endl;
 }
