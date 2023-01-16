@@ -1,36 +1,25 @@
 #include <iostream>
 
-void PrintDottedLine()
+double Max(double x, double y)
 {
-	std::cout << "--------------------" << std::endl;
+	return (x > y) ? x : y;
 }
 
-void PrintNumber(int x)
+int ReadValue()
 {
-	std::cout << x << std::endl;
+	std::cout << "정수를 입력하세요 : ";
+	int x{};
+	std::cin >> x;
+
+	return x;
 }
 
-int Square(int x)
+void WriteValue(int x)
 {
-	return x * x;
-}
-
-void PrintNumberNotChange(int x)
-{
-	x = -100;
-	std::cout << x << std::endl;
+	std::cout << "x : " << x << std::endl;
 }
 
 int main()
 {
-	PrintDottedLine();
-
-	int x{ 3 };
-
-	PrintNumber(x);
-
-	std::cout << Square(9) << std::endl;
-
-	PrintNumberNotChange(x);
-	std::cout << x << std::endl;
+	WriteValue(ReadValue());
 }
