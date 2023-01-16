@@ -4,16 +4,25 @@
 
 int main()
 {
-	int scores[10];
-
-	for (int i = 0; i < 10; ++i)
+	struct OneByte
 	{
-		std::cout << "Input score[" << i << "] : ";
-		std::cin >> scores[i];
-	}
+		char OBChar;
+	};
+	std::cout << sizeof(OneByte) << std::endl;
 
-	for (int i = 0; i < 10; ++i)
+	struct EightByte
 	{
-		std::cout << i << " : " << scores[i] << std::endl;
-	}
+		char EBChar;
+		int EBInt;
+	};
+	std::cout << sizeof(EightByte) << std::endl;
+
+#pragma pack(push, 1)
+	struct FiveByte
+	{
+		char FBChar;
+		int FBInt;
+	};
+#pragma pack(pop)
+	std::cout << sizeof(FiveByte) << std::endl;
 }
