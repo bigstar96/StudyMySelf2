@@ -1,23 +1,20 @@
 #include <iostream>
 
-// 정수 a를 b로 나눈 몫을 구하는 함수와 나머지를 구하는 함수를 만들어 봅시다.
-int Quotient(int a, int b)
+void GuGuDan(int dan)
 {
-	return a / b;
-}
+	std::cout << "---" << dan << "단---" << std::endl;
 
-int Remainder(int a, int b)
-{
-	return a % b;
+	for (int i = 1; i <= 9; ++i)
+	{
+		std::cout << dan << " x " << i << " = " << dan * i << std::endl;
+	}
 }
-
 
 int main()
 {
-	int a{ 7 };
-	int b{ 3 };
+	for (int i = 1; i <= 9; ++i)
+	{
+		GuGuDan(i);
+	}
 
-	std::cout << a << " / " << b << " = " << std::endl;
-	std::cout << "몫 : " << Quotient(a, b) << std::endl;
-	std::cout << "나머지 : " << Remainder(a, b) << std::endl;
 }
