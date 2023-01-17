@@ -1,20 +1,14 @@
 #include <iostream>
 
-void GuGuDan(int dan)
-{
-	std::cout << "---" << dan << "´Ü---" << std::endl;
-
-	for (int i = 1; i <= 9; ++i)
-	{
-		std::cout << dan << " x " << i << " = " << dan * i << std::endl;
-	}
-}
+int Square(int);
 
 int main()
 {
-	for (int i = 1; i <= 9; ++i)
-	{
-		GuGuDan(i);
-	}
+	std::cout << Square(2) << std::endl;
 
+}
+
+int Square(int x)
+{
+	return x * x;
 }
