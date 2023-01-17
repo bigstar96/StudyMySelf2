@@ -1,25 +1,23 @@
 #include <iostream>
 
-double Max(double x, double y)
+// 정수 a를 b로 나눈 몫을 구하는 함수와 나머지를 구하는 함수를 만들어 봅시다.
+int Quotient(int a, int b)
 {
-	return (x > y) ? x : y;
+	return a / b;
 }
 
-int ReadValue()
+int Remainder(int a, int b)
 {
-	std::cout << "정수를 입력하세요 : ";
-	int x{};
-	std::cin >> x;
-
-	return x;
+	return a % b;
 }
 
-void WriteValue(int x)
-{
-	std::cout << "x : " << x << std::endl;
-}
 
 int main()
 {
-	WriteValue(ReadValue());
+	int a{ 7 };
+	int b{ 3 };
+
+	std::cout << a << " / " << b << " = " << std::endl;
+	std::cout << "몫 : " << Quotient(a, b) << std::endl;
+	std::cout << "나머지 : " << Remainder(a, b) << std::endl;
 }
