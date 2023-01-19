@@ -1,22 +1,26 @@
 #include <iostream>	
 
-int Sum(int input[5])
-{
-	int sum{};
-	for (int i = 0; i < 5; ++i)
-	{
-		sum += input[i];
-	}
-
-	input[0] = 0;
-	input[1] = 0;
-
-	return sum;
-}
+void WhoAmI(int value);
+void WhoAmI(float value);
+void WhoAmI(float value1, float value2);
 
 int main()
 {
-	int numbers[] = { 1,2,3,4,5 };
-	std::cout << Sum(numbers);
-	std::cout << numbers[0] << " , " << numbers[1];
+	WhoAmI(10.0f,0.0f);
 }
+
+void WhoAmI(int value)
+{
+	std::cout << "나는 정수를 처리합니다." << value << std::endl;
+}
+
+void WhoAmI(float value)
+{
+	std::cout << "나는 소수를 처리합니다." << value << std::endl;
+}
+
+void WhoAmI(float value1, float value2)
+{
+	std::cout << "나는 소수를 2개 처리합니다." << value1 << ", " << value2 << std::endl;
+}
+
