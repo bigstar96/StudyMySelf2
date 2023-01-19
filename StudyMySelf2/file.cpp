@@ -1,0 +1,1 @@
+int myGlobalInteger = 5;
