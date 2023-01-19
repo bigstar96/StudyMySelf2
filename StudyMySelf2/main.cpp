@@ -1,26 +1,24 @@
-#include <iostream>	
+#include <iostream>
 
-void WhoAmI(int value);
-void WhoAmI(float value);
-void WhoAmI(float value1, float value2);
+char ConvertToUpperCase(char input);
 
 int main()
 {
-	WhoAmI(10.0f,0.0f);
+	char buffer[50] = "Hello wolrd";
+	for (int i = 0; i < 50; ++i)
+	{
+		std::cout << ConvertToUpperCase(buffer[i]);
+	}
 }
 
-void WhoAmI(int value)
+char ConvertToUpperCase(char input)
 {
-	std::cout << "나는 정수를 처리합니다." << value << std::endl;
+	if (input >= 'a' && input <= 'z')
+	{
+		return input - 'a' + 'A';
+	}
+	else
+	{
+		return input;
+	}
 }
-
-void WhoAmI(float value)
-{
-	std::cout << "나는 소수를 처리합니다." << value << std::endl;
-}
-
-void WhoAmI(float value1, float value2)
-{
-	std::cout << "나는 소수를 2개 처리합니다." << value1 << ", " << value2 << std::endl;
-}
-
