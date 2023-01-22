@@ -1,23 +1,53 @@
 #include <iostream>
-#include <stdarg.h>
 
-void function(int count, ...)
+// 다음과 같이 설계된 몬스터를 만들어 봅시다.
+// 타입 { Wolf, Demon, Slime }
+// 이름 문자열
+// HP 정수
+// 위 데이터로 황천늑대( HP 10 ), 서큐버스 ( HP 100 )를 인스턴스화하고 해당 정보를 출력하는 함수를 만들어 봅시다.
+
+struct Monster
 {
-	va_list params;
-	va_start(params, count);
-	for (int i = 0; i < count; ++i)
+	int HP = 10;
+	int MP = 0;
+	std::string name;
+}; 
+
+Monster Wolf{ 10, 0, "Wolf" };
+Monster Demon{ 100, 10, "Demon" };
+
+void NAME(Monster m)
+{
+	int num{ 1 };
+	
+	for (int i = 0; i < num; ++i)
 	{
-		std::cout << va_arg(params, int);
+		if (m.name[i] != '\0')
+		{
+			++num;
+		}
+		else
+		{
+			break;
+		}
 	}
-	std::cout << std::endl;
+
+	for (int i = 0; i < num; ++i)
+	{
+		std::cout << m.name[i];
+	}
 }
 
-
+void Print(Monster m)
+{
+	std::cout << m.name << std::endl;
+	std::cout << std::endl;
+	std::cout << "HP - " << m.HP << std::endl;
+	std::cout << "MP - " << m.MP << std::endl;
+}
 
 int main()
 {
-	function(1, 1);
-	function(2, 2, 3);
-
-	return 0;
+	Print(Wolf);
+	Print(Demon);
 }
