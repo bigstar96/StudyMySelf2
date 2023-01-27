@@ -1,53 +1,99 @@
 #include <iostream>
+#include <ctime>
 
-// 다음과 같이 설계된 몬스터를 만들어 봅시다.
-// 타입 { Wolf, Demon, Slime }
-// 이름 문자열
-// HP 정수
-// 위 데이터로 황천늑대( HP 10 ), 서큐버스 ( HP 100 )를 인스턴스화하고 해당 정보를 출력하는 함수를 만들어 봅시다.
+//숫자 야구 게임 만들기
+void CreateAnswer();
+void InputNumber();
+bool CheckNumber();
 
-struct Monster
+int gResultArray[3]{};
+int gInputArray[3]{};
+
+
+int main()
 {
-	int HP = 10;
-	int MP = 0;
-	std::string name;
-}; 
+	CreateAnswer();
 
-Monster Wolf{ 10, 0, "Wolf" };
-Monster Demon{ 100, 10, "Demon" };
-
-void NAME(Monster m)
-{
-	int num{ 1 };
-	
-	for (int i = 0; i < num; ++i)
+	while (true)
 	{
-		if (m.name[i] != '\0')
-		{
-			++num;
-		}
-		else
+		InputNumber();
+		if (CheckNumber())
 		{
 			break;
 		}
 	}
 
-	for (int i = 0; i < num; ++i)
+	return 0;
+}
+
+void CreateAnswer()
+{
+	int usedDigit[10]{ 0 };
+
+	std::srand(std::time(nullptr));
+
+	for (int i = 0; i < 3; ++i)
 	{
-		std::cout << m.name[i];
+		bool isDuplicated = true;
+		int random_digit{};
+
+		while (isDuplicated)
+		{
+			random_digit = std::rand() % 10;
+			if (usedDigit[random_digit] == 0)
+			{
+				usedDigit[random_digit] = 1;
+				break;
+			}
+		}
+		gResultArray[i] = random_digit;
+
+		// std::cout << random_digit;
 	}
 }
 
-void Print(Monster m)
+void InputNumber()
 {
-	std::cout << m.name << std::endl;
-	std::cout << std::endl;
-	std::cout << "HP - " << m.HP << std::endl;
-	std::cout << "MP - " << m.MP << std::endl;
+	char input[4]{};
+
+	std::cout << "세자리 숫자를 입력하세요 : ";
+	std::cin >> input;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		gInputArray[i] = input[i] - '0';
+	}
 }
 
-int main()
+bool CheckNumber()
 {
-	Print(Wolf);
-	Print(Demon);
+	int ball{ 0 }, strike{ 0 };
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			if (gInputArray[i] == gResultArray[j])
+			{
+				if (i == j)
+				{
+					strike++;
+				}
+				else
+				{
+					ball++;
+				}
+			}
+		}
+	}
+
+	std::cout << strike << " 스트라이크!, " << ball << " 볼!" << std::endl;
+
+	if (strike == 3)
+	{
+		std::cout << "정답입니다!" << std::endl;
+		return true;
+	}
+
+	return false;
 }
