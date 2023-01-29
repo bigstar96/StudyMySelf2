@@ -1,30 +1,46 @@
 #include <iostream>
 
-int Sum1(int input[5], int start, int end)
-{
-	if (start == end)
-	{
-		return input[start];
-	}
+int InputFromUser();
+void Move(char from, char to);
+void Hanoi(int n, char from, char temp, char to);
 
-	return input[start] + Sum1(input, start + 1, end);
-}
-
-int Sum2(int numbers[], int count)
-{
-	if (count <= 1)
-	{
-		return numbers[0];
-	}
-
-	return numbers[count - 1] + Sum2(numbers, count - 1);
-}
 
 int main()
 {
-	int array[]{ 1,2,3,4,5 };
-	// std::cout << Sum1(array, 0, 4);
+	int n = InputFromUser();
 
-	int numbers[5]{ 1,2,-3,4,5 };
-	std::cout << Sum2(numbers, 5) << std::endl;
+	Hanoi(n, 'A', 'B', 'C');
+}
+
+int InputFromUser()
+{
+	int n{};
+
+	std::cout << "<하노이의 탑>" << std::endl;
+	std::cout << "1. 한번에 하나의 원판만 옮길 수 있다." << std::endl;
+	std::cout << "2. 큰 원판이 작은 원판 위에 있어서는 안된다." << std::endl;
+	std::cout << "------------------------------" << std::endl;
+	std::cout << "원판의 갯수를 입려하세요 : ";
+	std::cin >> n;
+
+	return n;
+}
+
+void Move(int n, char from, char to)
+{
+	std::cout << from << "에서 " << to << "로 원반" << n << "을 옮깁니다." << std::endl;
+}
+
+void Hanoi(int n, char from, char temp, char to)
+{
+	if (n == 1)
+	{
+		Move(n, from, to);
+	}
+	else
+	{
+		Hanoi(n - 1, from, to, temp);
+		Move(n, from, to);
+		Hanoi(n - 1, temp, from, to);
+	}
 }
