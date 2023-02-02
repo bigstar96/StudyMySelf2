@@ -1,70 +1,36 @@
 #include <iostream>
 
-void swap(int* x, int* y)
-{
-	int temp = *x;
-	*x = *y;
-	*y = temp;
-}
+// 실습 - 내림차순 정렬 문제를 다음과 같은 함수로 만들어 보세요.
+// 함수 시그니쳐
+// void Sort(int numbers[], int count)
 
-void PrintValue(const int& x)
+void Sort(int numbers[], int count)
 {
-	std::cout << x << std::endl;
-}
-
-int Sum(int x, int y)
-{
-	return x + y;
-}
-
-int Sigma(int (*f)(int x), int m, int n)
-{
-	int sum = 0;
-	for (int k = m; k <= n; ++k)
+	for (int i = 0; i < count; ++i)
 	{
-		sum += f(k);
+		for (int j = 0; j < i; ++j)
+		{
+			if (numbers[i] < numbers[j])
+			{
+				int temp = numbers[i];
+				numbers[i] = numbers[j];
+				numbers[j] = temp;
+			}
+		}
 	}
 
-	return sum;
-}
-
-int NormalFunction(int x)
-{
-	return x;
-}
-
-int SquareSunction(int x)
-{
-	return x * x;
 }
 
 int main()
 {
-	/*int x{ 10 }, y{ 20 };
-	swap(&x, &y);
-	std::cout << x << " , " << y << std::endl;*/
+	const int NumArray = 10;
+	int scores[NumArray]{ 20,10,40,15,30 };
 
-	/*const int& ref3{ 10 + 20 };
-	std::cout << ref3 << std::endl;
+	Sort(scores, NumArray);
 
-	int x1{ 10 };
-	PrintValue(x1);
-
-	const int y1{ 20 };
-	PrintValue(y1);
-	PrintValue(30);
-	PrintValue(40 + 50);*/
-
-	/*int x{ 1 }, y{ 2 };
-	std::cout << &x << " , " << &y << std::endl;
-	std::cout << Sum << " , " << main << std::endl;
-	std::cout << &Sum << " , " << &main << std::endl;
-
-	Sum(x, y);*/
-
-	std::cout << "NormalFunction : " << &NormalFunction << std::endl;
-	std::cout << Sigma(NormalFunction, 1, 10) << std::endl;
-	std::cout << Sigma(SquareSunction, 1, 10) << std::endl;
-
-
+	for (int i = 0; i < NumArray; ++i)
+	{
+		std::cout << scores[i];
+		if (i < NumArray - 1) std::cout << ", ";
+	}
 }
