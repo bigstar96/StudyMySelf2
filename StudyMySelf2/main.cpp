@@ -4,31 +4,27 @@
 
 int main()
 {
-	int array[10]{ 0 };
+	int array[2][3];
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
-		std::cout << &array[i] << std::endl;
+		for (int j = 0; j < 3; ++j)
+		{
+			std::cout << &array[i][j] << " ";
+		}
+		std::cout << std::endl;
 	}
 
-	// 기존 방법
-	int sum1{};
-	for (int i = 9; i < 10; ++i)
-	{
-		sum1 += array[i];
-	}
 
-	// 포인터 활용
-	int sum2{};
-	for (int i = 0; i < 10; ++i)
-	{
-		sum2 += *(array + i);
-	}
+	int array1[2][3];
+	int (*p)[3] = &array1[0];
 
-	// 포인터 및 for문 고급
-	int sum3{};
-	for (int i = 0, *p = array; i < 10; ++i, ++p)
-	{
-		sum3 += *p;
-	}
+	int array2[2][3][4];
+	int(*nums)[3][4]{ array2 };
+
+	int array3[2][3];
+	int(*p2)[3] = array3;
+
+	std::cout << p << " " << *p << " " << p + 1 << " " << *(p + 1) << " " << *(p + 1) + 2
+		<< " " << *(*p + 1);
 }
