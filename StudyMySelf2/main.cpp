@@ -1,38 +1,27 @@
 #include <iostream>
 
+// 문자열은 Null 문자로 종료되는 배열
+// 배열은 포인터
+// 포인터 연산 가능
 
+int GetLength(char* pc)
+{
+	int count{};
+
+	while (*pc != '\0')
+	{
+		count++;
+		pc++;
+	}
+
+	return count;
+}
 
 int main()
 {
-	char c[6];
-	char* pc;
+	char input[1000];
 
-	c[0] = 'd';
-	c[1] = 'o';
-	c[2] = 'g';
-	c[3] = 'g';
-	c[4] = 'y';
-	std::cout << c << std::endl;
+	std::cin >> input;
 
-
-	pc = &c[0];
-	std::cout << pc << std::endl;
-
-
-	char myString[] = "Doggy";
-	char* p = myString;
-	std::cout << p << std::endl;
-
-
-	int myInteger = 5;
-	char myString1[] = { " is integer value" };
-	std::cout << myString1 + myInteger << std::endl;
-
-	// 한글과 컴퓨터
-
-	int myInteger2 = 5;
-	wchar_t myString2[] = { L"는 정수입니다." };
-	std::locale myLocale("kor");
-	std::wcout.imbue(myLocale);
-	std::wcout << myString2 + myInteger2 << std::endl;
+	std::cout << input << " : " << GetLength(input) << std::endl;
 }
