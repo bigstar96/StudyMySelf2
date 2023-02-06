@@ -4,27 +4,32 @@
 
 int main()
 {
-	int array[2][3];
+	int array[2][3]{
+		{1,2,3},
+		{4,5,6}
+	};
+
+	/*int(*p)[3] = array;
 
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; ++j)
 		{
-			std::cout << &array[i][j] << " ";
+			std::cout << *((*p) + j) << " ";
+		}
+		p++;
+		std::cout << std::endl;
+	}*/
+
+	int* p = &array[0][0];
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			std::cout << *p++ << " ";
 		}
 		std::cout << std::endl;
 	}
 
-
-	int array1[2][3];
-	int (*p)[3] = &array1[0];
-
-	int array2[2][3][4];
-	int(*nums)[3][4]{ array2 };
-
-	int array3[2][3];
-	int(*p2)[3] = array3;
-
-	std::cout << p << " " << *p << " " << p + 1 << " " << *(p + 1) << " " << *(p + 1) + 2
-		<< " " << *(*p + 1);
 }
