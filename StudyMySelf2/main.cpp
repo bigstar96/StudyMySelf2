@@ -1,27 +1,30 @@
 #include <iostream>
 
-// 문자열은 Null 문자로 종료되는 배열
-// 배열은 포인터
-// 포인터 연산 가능
+char* strcpy(char* destination, const char* source);
+//
 
-int GetLength(char* pc)
-{
-	int count{};
+char* strcpy_s(char* destination, size_t size, const char* source);
 
-	while (*pc != '\0')
-	{
-		count++;
-		pc++;
-	}
 
-	return count;
-}
+size_t strlen(const char* str);
+
+
 
 int main()
 {
-	char input[1000];
+	char myString[5] = "test";
 
-	std::cin >> input;
+	std::cout << "length : " << strlen(myString) << std::endl;
+	std::cout << "size : " << sizeof(myString) << std::endl;
 
-	std::cout << input << " : " << GetLength(input) << std::endl;
+	char compareStr[5];
+
+	strcpy_s(compareStr, 5, "boy");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+
+	strcpy_s(compareStr, 5, "test");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
+
+	strcpy_s(compareStr, 5, "word");
+	std::cout << "Compare with " << compareStr << " : " << strcmp(myString, compareStr) << std::endl;
 }
