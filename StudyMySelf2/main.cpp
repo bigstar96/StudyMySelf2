@@ -1,57 +1,38 @@
 #include <iostream>
 
-int Sum1(int input[], int size)
-{
-	int sum{};
 
-	for (int i = 0; i < size; ++i)
-	{
-		sum += input[i];
-	}
-	return sum;
-}
-
-int SumP(int(*input)[3], int count)
-{
-	int sum{};
-
-	int(*p)[3] = input;
-
-	for (int i = 0; i < 2; ++i)
-	{
-		for (int j = 0; j < 3; ++j)
-		{
-			sum += *((*p) + j);
-		}
-	}
-
-	return sum;
-}
-
-int SumP2(int* input, int count)
-{
-	int sum{};
-
-	int* p = input;
-	for (int i = 0; i < count; ++i)
-	{
-		sum += *p++;
-	}
-
-	return sum;
-}
 
 int main()
 {
-	int array[2][3]{
-		{1,2,3},
-		{4,5,6}
-	};
-	std::cout << SumP(array, 2);
+	char c[6];
+	char* pc;
+
+	c[0] = 'd';
+	c[1] = 'o';
+	c[2] = 'g';
+	c[3] = 'g';
+	c[4] = 'y';
+	std::cout << c << std::endl;
 
 
-	int array2[3]{ 7,8,9 };
-	std::cout << SumP2(&array2[0][0], 2 * 3) << std::endl;
-	std::cout << SumP2(&array2[0], 3) << std::endl;
+	pc = &c[0];
+	std::cout << pc << std::endl;
 
+
+	char myString[] = "Doggy";
+	char* p = myString;
+	std::cout << p << std::endl;
+
+
+	int myInteger = 5;
+	char myString1[] = { " is integer value" };
+	std::cout << myString1 + myInteger << std::endl;
+
+	// 한글과 컴퓨터
+
+	int myInteger2 = 5;
+	wchar_t myString2[] = { L"는 정수입니다." };
+	std::locale myLocale("kor");
+	std::wcout.imbue(myLocale);
+	std::wcout << myString2 + myInteger2 << std::endl;
 }
