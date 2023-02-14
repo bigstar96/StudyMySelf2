@@ -130,6 +130,10 @@
     <ClCompile Include="file.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memo.cpp" />
+    <ClCompile Include="Sort.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
