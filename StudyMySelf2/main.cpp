@@ -1,42 +1,56 @@
 #include <iostream>
-#include "Sort.h"
+#include <chrono>
 
+using Comparison = bool(*)(int, int);
+
+// 오름차순
+bool Asscending(int x, int y)
+{
+	return x < y;
+}
+
+bool Descending(int x, int y)
+{
+	return x > y;
+}
+
+void Sort(int numbers[], int count, Comparison f)
+{
+	int temp{};
+
+	for (int i = 0; i < count; ++i)
+	{
+		for (int j = i + 1; j < count; ++j)
+		{
+			if (f(numbers[i], numbers[j]))
+			{
+				temp = numbers[i];
+				numbers[i] = numbers[j];
+				numbers[j] = temp;
+			}
+		}
+	}
+}
 
 int main()
 {
-	const int size = 5;
-	int array1[size]{ 1,7,2,3,8 };
+	const int NumArray{ 10 };
+	int scores[NumArray]{ 20,10,40,15,30,70,60,90,80,50 };
 
+	auto startTime = std::chrono::system_clock::now();
+	Sort(scores, NumArray, Asscending);
+	auto endTime = std::chrono::system_clock::now();
 
-	SequentialSort(array1, size);
-	PrintArray(array1, size);
-	std::cout << std::endl;
+	for (int i = 0; i < NumArray; ++i)
+	{
+		if (i == (NumArray - 1))
+		{
+			std::cout << scores[i] << std::endl;
+			break;
+		}
+		std::cout << scores[i] << ", ";
+	}
+	auto duration = endTime - startTime;
 
-	int array2[size]{ 1,8,2,7,2 };
-	SelectionSort(array2, size);
-	PrintArray(array2, size);
-	std::cout << std::endl;
-
-	int array3[size]{ 3,5,6,2,1 };
-	BubbleSort(array3, size);
-	PrintArray(array3, size);
-	std::cout << std::endl;
-
-	int array4[size]{ 2,5,6,4,1 };
-	InsertionSort(array4, size);
-	PrintArray(array4, size);
-	std::cout << std::endl;
-
-	int array5[size]{ 7,9,3,4,1 };
-	int tempArray5[size]{};
-	MergeSort(array5, 0, size - 1, tempArray5);
-	PrintArray(array5, size);
-	std::cout << std::endl;
-
-	int array6[size]{ 5,3,7,8,2 };
-	QuickSort(array6, 0, size - 1);
-	PrintArray(array6, size);
-	std::cout << std::endl;
-
-
+	std::cout << "Sort() runs : " << duration.count() << "ms" << std::endl;
 }
