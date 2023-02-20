@@ -131,6 +131,7 @@
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memo.cpp" />
+    <ClCompile Include="MySelfCreatMonster.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Stack.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList_Monster.h" />
+    <ClInclude Include="MySelfCreatMonster.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />

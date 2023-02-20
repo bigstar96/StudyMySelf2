@@ -30,10 +30,5 @@ int main()
 	PrintMonsterList(myList);
 	std::cout << std::endl;
 
-
-	MyMonsterList myMonster{};
-
-	MySelfMonsterProcessUserInput(myMonster);
-
 	return 0;
 }

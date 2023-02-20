@@ -10,10 +10,3 @@ struct Monster
 	Monster* pNext;
 };
 
-struct MyMonster
-{
-	char name[NAME_LENGTH];
-	int hp;
-
-	MyMonster* pNext;
-};
