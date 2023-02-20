@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 const int NAME_LENGTH{ 16 };
 
