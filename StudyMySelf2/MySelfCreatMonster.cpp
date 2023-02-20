@@ -157,6 +157,7 @@ enum Comd
 void MySelfMonsterProcessUserInput(MyMonsterList& list)
 {
 	int command{ -1 }, comd{ -1 };
+
 	while (true)
 	{
 		MySelfMonsterInfo();
