@@ -16,8 +16,8 @@ struct Stack
 	int topIndex = -1;
 };
 
-void PrintInfoStack();
-void PrintStack(Stack& stack);
-void Push(Stack& stack);
-void Pop(Stack& stack);
-void ProcessUserInput(Stack& stack);
+void Stack_PrintInfo();
+void Stack_PrintStack(Stack& stack);
+void Stack_Push(Stack& stack);
+void Stack_Pop(Stack& stack);
+void Stack_ProcessUserInput(Stack& stack);

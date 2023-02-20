@@ -1,6 +1,6 @@
 #include "Queue.h"
 
-void PrintInfoQueue()
+void Queue_PrintInfo()
 {
 	std::cout << "[QUEUE]" << std::endl;
 	std::cout << "[1] ENQUEUE" << std::endl;
@@ -9,7 +9,7 @@ void PrintInfoQueue()
 }
 
 
-void PrintQueue(Queue& queue)
+void Queue_Print(Queue& queue)
 {
 	std::cout << "-----------" << std::endl;
 
@@ -36,7 +36,7 @@ void PrintQueue(Queue& queue)
 }
 
 
-void Enqueue(Queue& queue)
+void Queue_Enqueue(Queue& queue)
 {
 	if (queue.head == (queue.tail + 1) % QUEUE_SIZE)
 	{
@@ -54,7 +54,7 @@ void Enqueue(Queue& queue)
 }
 
 
-void Dequeue(Queue& queue)
+void Queue_Dequeue(Queue& queue)
 {
 	if (queue.head == queue.tail)
 	{
@@ -68,14 +68,14 @@ void Dequeue(Queue& queue)
 }
 
 
-void ProcessUserInputQueue(Queue& queue)
+void Queue_ProcessUserInput(Queue& queue)
 {
 	int command = -1;
 
 	while (true)
 	{
-		PrintInfoQueue();
-		PrintQueue(queue);
+		Queue_PrintInfo();
+		Queue_Print(queue);
 
 		std::cout << std::endl;
 		std::cout << " > ";
@@ -84,11 +84,11 @@ void ProcessUserInputQueue(Queue& queue)
 		switch (command)
 		{
 			case ENQUEUE:
-				Enqueue(queue);
+				Queue_Enqueue(queue);
 				break;
 
 			case DEQUEUE:
-				Dequeue(queue);
+				Queue_Dequeue(queue);
 				break;
 
 			case EXIT:

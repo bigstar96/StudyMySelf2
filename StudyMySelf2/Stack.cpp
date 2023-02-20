@@ -1,7 +1,7 @@
 #include "Stack.h"
 
 
-void PrintInfoStack()
+void Stack_PrintInfo()
 {
 	std::cout << "<STACK>" << std::endl;
 	std::cout << "[1] PUSH" << std::endl;
@@ -10,7 +10,7 @@ void PrintInfoStack()
 }
 
 
-void PrintStack(Stack& stack)
+void Stack_PrintStack(Stack& stack)
 {
 	std::cout << "----------" << std::endl;
 
@@ -22,7 +22,7 @@ void PrintStack(Stack& stack)
 	std::cout << "----------" << std::endl;
 }
 
-void Push(Stack& stack)
+void Stack_Push(Stack& stack)
 {
 	if (stack.topIndex == STACK_SIZE - 1)
 	{
@@ -37,7 +37,7 @@ void Push(Stack& stack)
 	stack.container[stack.topIndex] = num;
 }
 
-void Pop(Stack& stack)
+void Stack_Pop(Stack& stack)
 {
 	if (stack.topIndex == -1)
 	{
@@ -50,14 +50,14 @@ void Pop(Stack& stack)
 	stack.topIndex--;
 }
 
-void ProcessUserInput(Stack& stack)
+void Stack_ProcessUserInput(Stack& stack)
 {
 	int command = -1;
 
 	while (true)
 	{
-		PrintInfoStack();
-		PrintStack(stack);
+		Stack_PrintInfo();
+		Stack_PrintStack(stack);
 
 		std::cout << std::endl;
 		std::cout << "> ";
@@ -65,11 +65,11 @@ void ProcessUserInput(Stack& stack)
 		switch (command)
 		{
 			case PUSH:
-				Push(stack);
+				Stack_Push(stack);
 				break;
 
 			case POP:
-				Pop(stack);
+				Stack_Pop(stack);
 				break;
 
 			case EXIT:

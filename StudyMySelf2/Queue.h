@@ -17,8 +17,8 @@ struct Queue
 	int tail = 0;
 };
 
-void PrintInfoQueue();
-void PrintQueue(Queue& queue);
-void Enqueue(Queue& queue);
-void Dequeue(Queue& queue);
-void ProcessUserInputQueue(Queue& queue);
+void Queue_PrintInfo();
+void Queue_Print(Queue& queue);
+void Queue_Enqueue(Queue& queue);
+void Queue_Dequeue(Queue& queue);
+void Queue_ProcessUserInput(Queue& queue);
