@@ -4,7 +4,7 @@
 
 int main()
 {
-	/*MonsterList myList{};
+	MonsterList myList{};
 
 	CreatMonster(myList, "Wolf", 10);
 	CreatMonster(myList, "Slime", 20);
@@ -28,7 +28,7 @@ int main()
 
 	DeleteAllMonster(myList);
 	PrintMonsterList(myList);
-	std::cout << std::endl;*/
+	std::cout << std::endl;
 
 
 	MyMonsterList myMonster{};
