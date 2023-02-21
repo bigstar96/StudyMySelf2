@@ -1,12 +1,16 @@
 #include <iostream>
-#include "MySelfCreatMonster.h"
+#include "LinkedList.h"
 
 
 int main()
 {
-	MyMonsterList myMonster{};
+	Monster2List myList{};
 
-	MySelfMonsterProcessUserInput(myMonster);
+	CreatMonster(myList, "Wolf", 10);
+	CreatMonster(myList, "Slime", 20);
+	CreatMonster(myList, "Demon", 30);
+
+
 
 	return 0;
 }

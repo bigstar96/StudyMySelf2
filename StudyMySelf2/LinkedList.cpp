@@ -146,3 +146,36 @@ void DeleteAllMonster(MonsterList& list)
 	list.pTail = nullptr;
 }
 
+Monster2* CreatMonster(Monster2List& list, const char* name, const int hp)
+{
+
+
+	return nullptr;
+}
+
+int GetCountMonsterList(const Monster2List& list)
+{
+	return 0;
+}
+
+void PrintMonsterList(const Monster2List& list)
+{
+}
+
+void PrintListRecursive(Monster2* monster)
+{
+}
+
+Monster2* FindMonster(const Monster2List& list, const char* name)
+{
+	return nullptr;
+}
+
+bool MonsterDelete(Monster2List& list, const char* name)
+{
+	return false;
+}
+
+void DeleteAllMonster(Monster2List& list)
+{
+}
