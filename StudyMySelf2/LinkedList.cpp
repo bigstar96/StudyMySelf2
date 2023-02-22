@@ -146,36 +146,133 @@ void DeleteAllMonster(MonsterList& list)
 	list.pTail = nullptr;
 }
 
+
+
 Monster2* CreatMonster(Monster2List& list, const char* name, const int hp)
 {
+	Monster2* p = new Monster2;
 
+	strcpy_s(p->name, NAME_LENGTH, name);
+	p->hp = hp;
+	p->pNext = nullptr;
+	p->pPrev = nullptr;
 
-	return nullptr;
+	if (list.pTail == nullptr)
+	{
+		list.pHead = p;
+		list.pTail = p;
+	}
+	else
+	{
+		p->pPrev = list.pTail;
+		list.pTail->pNext = p;
+		list.pTail = p;
+	}
+
+	return p;
 }
 
 int GetCountMonsterList(const Monster2List& list)
 {
-	return 0;
+	Monster2* p = list.pHead;
+
+	int count{};
+	while (p != nullptr)
+	{
+		count++;
+		p = p->pNext;
+	}
+
+	return count;
 }
 
 void PrintMonsterList(const Monster2List& list)
 {
+	Monster2* p = list.pHead;
+
+	if (list.pHead == nullptr && list.pTail == nullptr)
+	{
+		std::cout << "NO DATA" << std::endl;
+		return;
+	}
+
+	while (p != nullptr)
+	{
+		std::cout << "NAME:" << p->name << " HP:" << p->hp << std::endl;
+		p = p->pNext;
+	}
 }
 
 void PrintListRecursive(Monster2* monster)
 {
+	if (monster == nullptr)
+	{
+		return;
+	}
+
+	std::cout << "NAME:" << monster->name << " HP:" << monster->hp << std::endl;
+	PrintListRecursive(monster->pNext);
 }
 
 Monster2* FindMonster(const Monster2List& list, const char* name)
 {
+	Monster2* p = list.pHead;
+
+	while (p != nullptr)
+	{
+		if (strcmp(p->name, name) == 0)
+		{
+			std::cout << "FIND! : " << p->name << std::endl;
+			return p;
+		}
+		p = p->pNext;
+	}
 	return nullptr;
 }
 
 bool MonsterDelete(Monster2List& list, const char* name)
 {
+	Monster2* monster = FindMonster(list, name);
+
+	if (monster != nullptr)
+	{
+		if (monster->pPrev == nullptr)
+		{
+			list.pHead = monster->pNext;
+		}
+		else
+		{
+			monster->pPrev->pNext = monster->pNext;
+		}
+
+		if (monster->pNext == nullptr)
+		{
+			list.pTail = monster->pPrev;
+		}
+		else
+		{
+			monster->pNext->pPrev = monster->pPrev;
+		}
+		delete monster;
+
+		return true;
+	}
+	
 	return false;
 }
 
 void DeleteAllMonster(Monster2List& list)
 {
+	Monster2* p = list.pHead;
+	Monster2* p2{};
+
+	while (p != nullptr)
+	{
+		p2 = p->pNext;
+		delete p;
+		p = p2;
+	}
+
+	list.pHead = nullptr;
+	list.pTail = nullptr;
 }
