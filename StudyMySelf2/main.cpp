@@ -1,12 +1,45 @@
 #include <iostream>
-#include "Point2D.h"
+#include "DateClass.h"
+#include "Student.h"
 
+class MyClass
+{
+public:
+	MyClass()
+	{
+		std::cout << "[Constructor]" << std::endl;
+	}
+	~MyClass()
+	{
+		std::cout << "[Destructor]" << std::endl;
+	}
+};
+
+class Quest
+{
+private:
+	int mID;
+	int mExp;
+
+public:
+	Quest(int id = 1, int exp = 1) :
+		mID{ id }, mExp{ exp }
+	{
+	}
+
+	void Print()
+	{
+		std::cout << "QuestID : " << mID << std::endl;
+		std::cout << "EXP : " << mExp << std::endl;
+	}
+};
 
 int main()
 {
-	Point2D pt;
-	pt.Point2D_Set(3, 3);
-	std::cout << pt.Point2D_Length() << std::endl;
-	pt.Point2D_Print();
+	DateClass dc{ 2023,02,24 };
+	dc.Print();
+
+	Student student{ "Hello World" };
+	student.Print();
 }
 
