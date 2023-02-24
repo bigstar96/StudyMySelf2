@@ -5,7 +5,8 @@ private:
 	int mAge;
 
 public:
-	void Meow();
+	void Meow() const;
 	int GetAge();
+	void SetAge(int age);
 };
 

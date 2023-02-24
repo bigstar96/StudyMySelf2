@@ -1,7 +1,7 @@
 #include "Cat.h"
 #include <iostream>
 
-void Cat::Meow()
+void Cat::Meow() const
 {
     std::cout << "Meow..." << std::endl;
 }
@@ -9,4 +9,9 @@ void Cat::Meow()
 int Cat::GetAge()
 {
     return mAge;
+}
+
+void Cat::SetAge(int age)
+{
+    mAge = age;
 }

@@ -42,6 +42,9 @@
     <ClCompile Include="Cat.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Point2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -63,6 +66,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Cat.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
