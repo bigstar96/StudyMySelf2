@@ -134,6 +134,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memo.cpp" />
     <ClCompile Include="MySelfCreatMonster.cpp" />
+    <ClCompile Include="MySelfString.cpp" />
     <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Sort.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList_Monster.h" />
     <ClInclude Include="MySelfCreatMonster.h" />
+    <ClInclude Include="MySelfString.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="resource.h" />
