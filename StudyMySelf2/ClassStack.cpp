@@ -6,7 +6,15 @@ ClassStack::ClassStack() : mCount{}, mTop{ nullptr }
 
 ClassStack::~ClassStack()
 {
+	Element* element = mTop;
+	Element* next = nullptr;
 
+	while (element != nullptr)
+	{
+		next = element->mNext;
+		delete element;
+		element = next;
+	}
 }
 
 void ClassStack::Push(int value)
