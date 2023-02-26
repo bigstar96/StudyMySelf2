@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cat.cpp" />
+    <ClCompile Include="ClassQueue.cpp" />
+    <ClCompile Include="ClassStack.cpp" />
     <ClCompile Include="DateClass.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="LinkedList.cpp" />
@@ -143,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cat.h" />
+    <ClInclude Include="ClassQueue.h" />
+    <ClInclude Include="ClassStack.h" />
     <ClInclude Include="DateClass.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList_Monster.h" />
