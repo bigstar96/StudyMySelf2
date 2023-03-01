@@ -1,27 +1,34 @@
 #include <iostream>
-#include "ClassStack.h"
+#include "ClassQueue.h"
 
+enum Command
+{
+	ENQUEUE = 1,
+	DEQUEUE = 2,
+	EXIT = 3
+};
 
 int main()
 {
-	ClassStack cs{};
+	ClassQueue queue{};
 	int command = -1;
-	int num;
+	int num{};
+
 	while (true)
 	{
-		cs.Print();
-		std::cout << "----------" << std::endl;
+		queue.Print();
+		std::cout << "> ";
 		std::cin >> command;
 		switch (command)
 		{
-			case PUSH:
+			case ENQUEUE:
 				std::cout << " > ";
 				std::cin >> num;
-				cs.Push(num);
+				queue.Enqueue(num);
 				break;
 
-			case POP:
-				cs.Pop();
+			case DEQUEUE:
+				queue.Dequeue();
 				break;
 
 			case EXIT:
@@ -29,13 +36,11 @@ int main()
 				break;
 
 			default:
-
+				std::cout << "NO" << std::endl;
 				break;
 		}
-
 	}
 
-	return 0;
 }
 
 
