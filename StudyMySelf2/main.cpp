@@ -1,46 +1,34 @@
 #include <iostream>
-#include "ClassQueue.h"
 
-enum Command
+class MyClass
 {
-	ENQUEUE = 1,
-	DEQUEUE = 2,
-	EXIT = 3
+public:
+	int mValue1;
+	int mValue2;
+
+	MyClass() : MyClass(1, 1)
+	{}
+	MyClass(int v1, int v2) : mValue1{ v1 }, mValue2{ v2 }
+	{}
+
+	void SetValue(int x)
+	{
+		mValue1 = x;
+	}
+
+	void DoNothing()
+	{
+
+	}
 };
+
+
 
 int main()
 {
-	ClassQueue queue{};
-	int command = -1;
-	int num{};
+	MyClass c1;
+	MyClass c2(2, 2);
+	MyClass c3{ 3,3 };
 
-	while (true)
-	{
-		queue.Print();
-		std::cout << "> ";
-		std::cin >> command;
-		switch (command)
-		{
-			case ENQUEUE:
-				std::cout << " > ";
-				std::cin >> num;
-				queue.Enqueue(num);
-				break;
-
-			case DEQUEUE:
-				queue.Dequeue();
-				break;
-
-			case EXIT:
-				return 0;
-				break;
-
-			default:
-				std::cout << "NO" << std::endl;
-				break;
-		}
-	}
-
+	c1.mValue1 = 10;
 }
-
-
