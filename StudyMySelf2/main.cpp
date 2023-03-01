@@ -2,28 +2,27 @@
 
 class Sword
 {
-	friend class Warrior;
-
 private:
 	int mAttackDamage;
+
 public:
 	Sword(int damage) : mAttackDamage{ damage } {}
-
+	friend void DamageBuff(Sword& sword);
 };
 
-class Warrior
+void DamageBuff(Sword& sword)
 {
-public:
-	void AttackWith(Sword& sword)
-	{
-		std::cout << "칼을 휘둘러 " << sword.mAttackDamage << "만큼 피해를 주었다!" << std::endl;
-	}
-};
+	int oldDamage = sword.mAttackDamage;
+	sword.mAttackDamage = oldDamage * 2;
+	std::cout << "검을 강화했다." << oldDamage << "->" << sword.mAttackDamage << std::endl;
+}
+
+
 
 int main()
 {
-	Sword shorSword{ 10 };
-	Warrior w;
-
-	w.AttackWith(shorSword);
+	Sword shortSword(10);
+	DamageBuff(shortSword);
 }
+
+
