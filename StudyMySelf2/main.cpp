@@ -3,32 +3,46 @@
 class MyClass
 {
 public:
-	int mValue1;
-	int mValue2;
+	static int sCount;
 
-	MyClass() : MyClass(1, 1)
-	{}
-	MyClass(int v1, int v2) : mValue1{ v1 }, mValue2{ v2 }
-	{}
-
-	void SetValue(int x)
+	MyClass()
 	{
-		mValue1 = x;
+		sCount++;
+	}
+	~MyClass()
+	{
+		sCount--;
 	}
 
-	void DoNothing()
-	{
+};
 
+int MyClass::sCount{ 0 };
+
+class MyIDGenerator
+{
+public:
+	static int sID;
+
+	static int CreateNewID()
+	{
+		return ++sID;
 	}
 };
 
-
+int MyIDGenerator::sID{ 0 };
 
 int main()
 {
 	MyClass c1;
-	MyClass c2(2, 2);
-	MyClass c3{ 3,3 };
+	MyClass c2;
+	MyClass c3;
+	
+	std::cout << c3.sCount << std::endl;
+	std::cout << MyClass::sCount << std::endl;
 
-	c1.mValue1 = 10;
+	std::cout << std::endl;
+
+	std::cout << MyIDGenerator::CreateNewID() << std::endl;
+	std::cout << MyIDGenerator::CreateNewID() << std::endl;
+	std::cout << MyIDGenerator::CreateNewID() << std::endl;
 }
