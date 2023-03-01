@@ -1,28 +1,35 @@
 #include <iostream>
 
+class Sword;
+
+class Warrior
+{
+public:
+	void AttackWith(Sword& sword);
+	
+};
+
 class Sword
 {
 private:
-	int mAttackDamage;
-
+	int attackDamage;
+	
 public:
-	Sword(int damage) : mAttackDamage{ damage } {}
-	friend void DamageBuff(Sword& sword);
+	Sword(int damage) : attackDamage{ damage } {}
+
+	friend void Warrior::AttackWith(Sword& sword);
 };
 
-void DamageBuff(Sword& sword)
+void Warrior::AttackWith(Sword& sword)
 {
-	int oldDamage = sword.mAttackDamage;
-	sword.mAttackDamage = oldDamage * 2;
-	std::cout << "검을 강화했다." << oldDamage << "->" << sword.mAttackDamage << std::endl;
+	std::cout << "칼을 휘둘러 " << sword.attackDamage << "만큼 피해를 주었다!" << std::endl;
 }
-
-
 
 int main()
 {
-	Sword shortSword(10);
-	DamageBuff(shortSword);
-}
+	Sword s(10);
+	Warrior w;
 
+	w.AttackWith(s);
+}
 
