@@ -1,48 +1,29 @@
 #include <iostream>
 
-class MyClass
+class Sword
 {
-public:
-	static int sCount;
+	friend class Warrior;
 
-	MyClass()
-	{
-		sCount++;
-	}
-	~MyClass()
-	{
-		sCount--;
-	}
+private:
+	int mAttackDamage;
+public:
+	Sword(int damage) : mAttackDamage{ damage } {}
 
 };
 
-int MyClass::sCount{ 0 };
-
-class MyIDGenerator
+class Warrior
 {
 public:
-	static int sID;
-
-	static int CreateNewID()
+	void AttackWith(Sword& sword)
 	{
-		return ++sID;
+		std::cout << "칼을 휘둘러 " << sword.mAttackDamage << "만큼 피해를 주었다!" << std::endl;
 	}
 };
-
-int MyIDGenerator::sID{ 0 };
 
 int main()
 {
-	MyClass c1;
-	MyClass c2;
-	MyClass c3;
-	
-	std::cout << c3.sCount << std::endl;
-	std::cout << MyClass::sCount << std::endl;
+	Sword shorSword{ 10 };
+	Warrior w;
 
-	std::cout << std::endl;
-
-	std::cout << MyIDGenerator::CreateNewID() << std::endl;
-	std::cout << MyIDGenerator::CreateNewID() << std::endl;
-	std::cout << MyIDGenerator::CreateNewID() << std::endl;
+	w.AttackWith(shorSword);
 }
