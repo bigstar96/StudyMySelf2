@@ -1,35 +1,45 @@
 #include <iostream>
 
-class Sword;
-
-class Warrior
-{
-public:
-	void AttackWith(Sword& sword);
-	
-};
-
-class Sword
+class Point2D
 {
 private:
-	int attackDamage;
-	
-public:
-	Sword(int damage) : attackDamage{ damage } {}
+	int mX{};
+	int mY{};
 
-	friend void Warrior::AttackWith(Sword& sword);
+public:
+	Point2D() = default;
+	Point2D(int x, int y) : mX{ x }, mY{ y } {}
+
+	void Print()
+	{
+		std::cout << "(" << mX << ", " << mY << ")" << std::endl;
+	}
+
+	friend Point2D operator+(const Point2D& x, const Point2D& y);
 };
 
-void Warrior::AttackWith(Sword& sword)
+Point2D operator+(const Point2D& x, const Point2D& y)
 {
-	std::cout << "칼을 휘둘러 " << sword.attackDamage << "만큼 피해를 주었다!" << std::endl;
+	Point2D newPt{ 0,0 };
+
+	newPt.mX = x.mX + y.mX;
+	newPt.mY = x.mY + y.mY;
+
+	return newPt;
 }
 
 int main()
 {
-	Sword s(10);
-	Warrior w;
+	Point2D pt1{ 2,3 };
+	Point2D pt2{ 3,4 };
+	Point2D pt3{};
+	Point2D pt4{};
 
-	w.AttackWith(s);
+	pt3 = pt1 + pt2;
+	pt3.Print();
+
+	pt4 = (pt1 + pt2) + pt3;
+	pt4.Print();
+
 }
 
