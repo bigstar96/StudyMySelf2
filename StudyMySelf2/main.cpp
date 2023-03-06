@@ -1,20 +1,36 @@
 #include <iostream>
 
-class ClassA
+class MyClass
 {
 public:
-	ClassA() {}
+	int mValue;
+	MyClass(int value) : mValue{ value }
+	{
+		std::cout << "[ MyClass() ] : "
+			<< mValue << std::endl;
+	}
+
+	MyClass operator+(const MyClass& c)
+	{
+		return MyClass{ mValue + c.mValue };
+	}
 };
 
-class ClassB
+int Square(const MyClass& c)
 {
-public:
-	ClassB() = default;
-};
+	return c.mValue * c.mValue;
+}
 
 int main()
 {
-	std::cout << std::is_trivial<ClassA>::value << std::is_pod<ClassA>::value << std::endl;
+	MyClass c1{ 1 }, c2{ 2 };
 
-	std::cout << std::is_trivial<ClassB>::value << std::is_pod<ClassB>::value << std::endl;
+	std::cout << "----------" << std::endl;
+	Square(c1 + c2);
+
+	std::cout << "-----" << std::endl;
+	std::cout << (c1 + c2).mValue << std::endl;
+
+	std::cout << "-------" << std::endl;
+	MyClass c3{ c1 + c2 };
 }
