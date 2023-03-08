@@ -1,36 +1,40 @@
 #include <iostream>
 
-class MyClass
+class Developer
 {
 public:
-	int mValue;
-	MyClass(int value) : mValue{ value }
-	{
-		std::cout << "[ MyClass() ] : "
-			<< mValue << std::endl;
-	}
+	std::string	mName;
+	int			mAge;
 
-	MyClass operator+(const MyClass& c)
-	{
-		return MyClass{ mValue + c.mValue };
-	}
 };
 
-int Square(const MyClass& c)
+class Programmer : public Developer
 {
-	return c.mValue * c.mValue;
-}
+public:
+	void Coding();
+	void Debugging();
+};
+
+class Designer : public Developer
+{
+public:
+	void Documentation();
+	void Presentation();
+};
+
+class ChiefProgrammer : public Programmer
+{
+public:
+	void Architecture();
+	void Scheduling();
+};
+
+#include "ClassDog.h"
 
 int main()
 {
-	MyClass c1{ 1 }, c2{ 2 };
+	ClassDog john;
 
-	std::cout << "----------" << std::endl;
-	Square(c1 + c2);
-
-	std::cout << "-----" << std::endl;
-	std::cout << (c1 + c2).mValue << std::endl;
-
-	std::cout << "-------" << std::endl;
-	MyClass c3{ c1 + c2 };
+	john.Sound();
+	john.Roll();
 }

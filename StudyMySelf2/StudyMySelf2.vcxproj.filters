@@ -63,6 +63,12 @@
     <ClCompile Include="ClassString.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ClassAnimal.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassDog.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -108,6 +114,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ClassString.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassAnimal.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassDog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
