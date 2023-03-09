@@ -16,6 +16,8 @@ public:
 	ClassDog(int age, int weight, ClassDog::BREED breed);
 	~ClassDog();
 
+	ClassAnimal* Clone();
+
 	ClassDog::BREED GetBreed() const;
 	void SetBreed(ClassDog::BREED breed);
 

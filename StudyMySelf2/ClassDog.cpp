@@ -17,6 +17,11 @@ ClassDog::~ClassDog()
 	std::cout << "[Dog] Destroyed!" << std::endl;
 }
 
+ClassAnimal* ClassDog::Clone()
+{
+	return new ClassDog(*this);
+}
+
 ClassDog::BREED ClassDog::GetBreed() const
 {
 	return mBreed;

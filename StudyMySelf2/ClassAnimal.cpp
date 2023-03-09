@@ -15,6 +15,11 @@ ClassAnimal::~ClassAnimal()
 	std::cout << "[Animal] Destoyed!" << std::endl;
 }
 
+ClassAnimal* ClassAnimal::Clone()
+{
+	return new ClassAnimal(*this);
+}
+
 int ClassAnimal::GetAge() const
 {
 	return mAge;

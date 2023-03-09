@@ -11,7 +11,8 @@ protected:
 public:
 	ClassAnimal();
 	ClassAnimal(int age, int weight);
-	~ClassAnimal();
+	virtual ~ClassAnimal();
+	virtual ClassAnimal* Clone();
 
 	int GetAge() const;
 	void SetAge(int age);
