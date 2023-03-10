@@ -129,10 +129,12 @@
   <ItemGroup>
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="ClassAnimal.cpp" />
+    <ClCompile Include="ClassCharacter.cpp" />
     <ClCompile Include="ClassDog.cpp" />
     <ClCompile Include="ClassQueue.cpp" />
     <ClCompile Include="ClassStack.cpp" />
     <ClCompile Include="ClassString.cpp" />
+    <ClCompile Include="ClassWarrior.cpp" />
     <ClCompile Include="DateClass.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="LinkedList.cpp" />
@@ -149,10 +151,12 @@
   <ItemGroup>
     <ClInclude Include="Cat.h" />
     <ClInclude Include="ClassAnimal.h" />
+    <ClInclude Include="ClassCharacter.h" />
     <ClInclude Include="ClassDog.h" />
     <ClInclude Include="ClassQueue.h" />
     <ClInclude Include="ClassStack.h" />
     <ClInclude Include="ClassString.h" />
+    <ClInclude Include="ClassWarrior.h" />
     <ClInclude Include="DateClass.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList_Monster.h" />

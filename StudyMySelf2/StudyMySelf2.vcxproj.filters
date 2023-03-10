@@ -69,6 +69,12 @@
     <ClCompile Include="ClassDog.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ClassCharacter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassWarrior.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -120,6 +126,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ClassDog.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassCharacter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassWarrior.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

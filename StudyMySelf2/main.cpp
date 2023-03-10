@@ -1,86 +1,59 @@
 #include <iostream>
 
-class Developer
+class Status
 {
 public:
-	std::string	mName;
-	int			mAge;
-
+	int mHP;
+	int mMP;
 };
 
-class Programmer : public Developer
+class Potion
 {
 public:
-	void Coding();
-	void Debugging();
+	int mCount;
+	int mRecovery;
 };
 
-class Designer : public Developer
+class Player
 {
-public:
-	void Documentation();
-	void Presentation();
+	Status mStatus;
+	Potion* pPotion;
 };
 
-class ChiefProgrammer : public Programmer
+class Auction
 {
-public:
-	void Architecture();
-	void Scheduling();
+	Player* mPlayer;
 };
 
-#include "ClassDog.h"
+#include "ClassWarrior.h"
 
-class ClassA
+void TestPrint(char* text)
 {
-public:
-	void func1() { std::cout << "ClassA::func1()" << std::endl; }
-	virtual void func2() { std::cout << "ClassA::func2()" << std::endl; }
-};
-
-class ClassB : public ClassA
-{
-public:
-	void func1() { std::cout << "ClassB::func1()" << std::endl; }
-	void func2() { std::cout << "ClassB::func2()" << std::endl; }
-};
-
-
+	std::cout << text << std::endl;
+}
 
 int main()
 {
-	//ClassDog john;
+	ClassCharacter* pHero = new ClassWarrior;
+	pHero->Attack();
+	pHero->Dead();
 
-	//john.Sound();
-	//john.Roll();
+	// ((ClassWarrior*)pHero)->DoubleSlash();
+	ClassWarrior* pWarrior = static_cast<ClassWarrior*>(pHero);
+	if (pWarrior = nullptr)
+	{
+		std::cout << "ERROR!" << std::endl;
+	}
+	else
+	{
+		pWarrior->DoubleSlash();
+	}
 
-	ClassA* a = new ClassA;
-	ClassB* b = new ClassB;
+	// 강제 변환 - reinterpret_cast<>();
+	const char myString[] = "this is test";
+	TestPrint(const_cast<char*>(myString));
 
-	a->func1();
-	a->func2();
-	b->func1();
-	b->func2();
 
-	std::cout << "-----" << std::endl;
-	
-	ClassA* p = b;
-	p->func1();
-	p->func2();
 
-	delete b;
-	delete a;
-	std::cout << "-----" << std::endl;
-
-	ClassDog john2(1, 1, ClassDog::BREED::HUSKY);
-	john2.Sound();
-	john2.Roll();
-
-	std::cout << "------------" << std::endl;
-	ClassAnimal* clone = john2.Clone();
-
-	std::cout << "Clone's Age is " << clone->GetAge() << std::endl;
-	clone->Sound();
-
-	delete clone;
+	delete pHero;
 }
