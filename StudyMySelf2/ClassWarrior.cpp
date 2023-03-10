@@ -22,5 +22,6 @@ void ClassWarrior::DoubleSlash() const
 
 void ClassWarrior::Dead() const
 {
+	ClassCharacter::Dead();
 	std::cout << "\t전사는 죽었습니다." << std::endl;
 }

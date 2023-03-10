@@ -75,6 +75,9 @@
     <ClCompile Include="ClassWarrior.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="namespaceGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -132,6 +135,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ClassWarrior.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="namespaceGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

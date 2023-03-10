@@ -17,4 +17,5 @@ void ClassCharacter::Attack() const
 
 void ClassCharacter::Dead() const
 {
+	std::cout << "Abstract dead~" << std::endl;
 }
