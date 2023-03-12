@@ -131,6 +131,7 @@
     <ClCompile Include="ClassAnimal.cpp" />
     <ClCompile Include="ClassCharacter.cpp" />
     <ClCompile Include="ClassDog.cpp" />
+    <ClCompile Include="ClassMyClass.cpp" />
     <ClCompile Include="ClassQueue.cpp" />
     <ClCompile Include="ClassStack.cpp" />
     <ClCompile Include="ClassString.cpp" />
@@ -154,6 +155,8 @@
     <ClInclude Include="ClassAnimal.h" />
     <ClInclude Include="ClassCharacter.h" />
     <ClInclude Include="ClassDog.h" />
+    <ClInclude Include="ClassMyClass.h" />
+    <ClInclude Include="ClassMyClass.hpp" />
     <ClInclude Include="ClassQueue.h" />
     <ClInclude Include="ClassStack.h" />
     <ClInclude Include="ClassString.h" />
