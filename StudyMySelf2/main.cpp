@@ -15,30 +15,68 @@
 // 미리 준비해둔 알고리즘 집합. 컨테이너를 다룰 수 있는 전역 템플릿 함수들의 집합으로 되어있고,
 // 컨테이너와 분리 되어 있어서 모든 컨테이너에게 적용할 수 있는 장점이 있음.
 
-#include <bitset>
+#include <vector>
+
 
 int main()
 {
-	int myInt = 123;
-	float myFloat = 3.141592f;
-	bool myBool = true;
+	std::vector<int> v1{ 2,3,1,5,6 };
+	std::vector<std::string> names{ "doggy","kitty","bunny","piggy" };
+	std::vector<int> v2(5);
 
-	std::cout << myBool << std::endl;
-	std::cout << std::boolalpha << myBool << std::endl;
+	// std::cout << v1[0];
 
-	std::cout << std::dec << myInt << std::endl;
-	std::cout << std::hex << myInt << std::endl;
-	std::cout << std::oct << myInt << std::endl;
+	std::vector<int> v3{ 2,3,1,5,6 };
+	for (int i = 0; i < v3.size(); ++i)
+	{
+		std::cout << v3[i] << " ";
+	}
+	std::cout << std::endl;
 
-	std::cout << std::bitset<8>(myInt).to_string() << std::endl;
+	for (int x : v3)
+	{
+		std::cout << x << " ";
+	}
+	std::cout << std::endl;
 
-	std::cout.precision(3);
-	std::cout << myFloat << std::endl;
+	for (std::string name : names)
+	{
+		std::cout << name << " ";
+	}
 
-	std::cout.width(10);
-	std::cout << myInt << std::endl;
+	/*std::vector<int> v4{};
+	std::cout << "숫자를 공백으로 구분하여 입력하세요!" << std::endl;
+	std::cout << "입력 종료는 숫자가 아닌 문자를 입력하시면 됩니다." << std::endl;
 
-	std::cout.fill('0');
-	std::cout.width(10);
-	std::cout << std::right << myInt << std::endl;
+	for (int value; std::cin >> value;)
+	{
+		v4.push_back(value);
+	}
+
+	int sum{};
+	for (int element : v4)
+	{
+		sum += element;
+	}
+
+	float average = static_cast<float>(sum) / v4.size();
+
+	std::cout << "합 : " << sum << std::endl;
+	std::cout << "평균 : " << average << std::endl;*/
+
+	std::vector<int> v5{ 1,2,3 };
+	std::vector<int>::iterator itr1 = v5.begin();
+
+	while (itr1 != v5.end())
+	{
+		std::cout << *itr1;
+		itr1++;
+	}
+	for (std::vector<int>::iterator itr2 = v5.begin(); itr2 != v5.end(); ++itr2)
+	{
+		std::cout << *itr2;
+	}
+
+
+	return 0;
 }
