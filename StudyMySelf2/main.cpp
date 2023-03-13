@@ -15,62 +15,30 @@
 // 미리 준비해둔 알고리즘 집합. 컨테이너를 다룰 수 있는 전역 템플릿 함수들의 집합으로 되어있고,
 // 컨테이너와 분리 되어 있어서 모든 컨테이너에게 적용할 수 있는 장점이 있음.
 
-void TestPrint(std::string& str)
-{
-	std::cout << str.length() << " : " << str << std::endl;
-}
-
-
-#include <string>
-#include <sstream>
-
+#include <bitset>
 
 int main()
 {
-	std::string empty;
-	TestPrint(empty);
-	std::string sized(10, '\0');
-	TestPrint(sized);
-	std::string s1("test");
-	std::cout << s1[0] << s1[1] << s1[2] << s1[3] << std::endl;
-	std::string s2(s1);
-	std::string s3 = s1 + s2;
-	TestPrint(s3);
-	s3 += s3;
-	s3[0] = 'T';
-	TestPrint(s3);
-	empty = s3;
-	TestPrint(empty);
-	empty = empty;
-	TestPrint(empty);
+	int myInt = 123;
+	float myFloat = 3.141592f;
+	bool myBool = true;
 
+	std::cout << myBool << std::endl;
+	std::cout << std::boolalpha << myBool << std::endl;
 
-	int number1{ 123 };
-	std::string str1{ "" };
-	str1 = std::to_string(number1);
-	number1 = stoi(str1);
-	std::cout << str1 << "<->" << number1 << std::endl;
+	std::cout << std::dec << myInt << std::endl;
+	std::cout << std::hex << myInt << std::endl;
+	std::cout << std::oct << myInt << std::endl;
 
-	wchar_t c1 = L'A';
-	std::wstring String = L"확장 문자열";
-	
-	int number2{ 1 };
-	char name[]{ "Doggy" };
-	float average{ 90.1f };
-	char output[128]{};
+	std::cout << std::bitset<8>(myInt).to_string() << std::endl;
 
-	sprintf_s(output, sizeof(output),
-		"%d번 학생 %s는 평균 %.1f 입니다.",
-		number2, name, average
-		);
-	std::string str2{ output };
-	std::cout << str2 << std::endl;
+	std::cout.precision(3);
+	std::cout << myFloat << std::endl;
 
-	std::cout << snprintf(output, sizeof(output), "%d번 학생 %s는 평균 %.1f 입니다.", number2, name, average);
+	std::cout.width(10);
+	std::cout << myInt << std::endl;
 
-	std::ostringstream oss;
-	oss << number2 << "번 학생 " << name << "는 평균 " << average << "입니다." << std::endl;
-
-	std::string buffer = oss.str();
-	std::cout << buffer << std::endl;
+	std::cout.fill('0');
+	std::cout.width(10);
+	std::cout << std::right << myInt << std::endl;
 }
