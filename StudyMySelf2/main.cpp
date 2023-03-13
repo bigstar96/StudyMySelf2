@@ -17,66 +17,51 @@
 
 #include <vector>
 
+#include <algorithm>
+
+int IntCompare(const void* left, const void* right)
+{
+	int lhs = *static_cast<const int*> (left);
+	int rhs = *static_cast<const int*> (right);
+
+	/*if (lhs > rhs)
+	{
+		return -1;
+	}
+	else if (lhs < rhs)
+	{
+		return 1;
+	}
+
+	return 0;*/
+
+	return rhs - lhs;
+}
 
 int main()
 {
-	std::vector<int> v1{ 2,3,1,5,6 };
-	std::vector<std::string> names{ "doggy","kitty","bunny","piggy" };
-	std::vector<int> v2(5);
+	std::vector<int> v1{ 1,2,3 };
 
-	// std::cout << v1[0];
+	qsort(v1.data(), v1.size(), sizeof(v1[0]), IntCompare);
 
-	std::vector<int> v3{ 2,3,1,5,6 };
-	for (int i = 0; i < v3.size(); ++i)
+	for (int value1 : v1)
 	{
-		std::cout << v3[i] << " ";
+		std::cout << value1 << " ";
 	}
 	std::cout << std::endl;
 
-	for (int x : v3)
+	std::vector<int> v2{ 4,3,1,5,2 };
+	qsort(v2.data(), v2.size(), sizeof(v2[0]),
+		[](const void* a, const void* b) { return *static_cast<const int*>(b) - *static_cast<const int*>(a); }
+	);
+	for (int value2 : v2)
 	{
-		std::cout << x << " ";
+		std::cout << value2 << " ";
 	}
 	std::cout << std::endl;
 
-	for (std::string name : names)
-	{
-		std::cout << name << " ";
-	}
-
-	/*std::vector<int> v4{};
-	std::cout << "숫자를 공백으로 구분하여 입력하세요!" << std::endl;
-	std::cout << "입력 종료는 숫자가 아닌 문자를 입력하시면 됩니다." << std::endl;
-
-	for (int value; std::cin >> value;)
-	{
-		v4.push_back(value);
-	}
-
-	int sum{};
-	for (int element : v4)
-	{
-		sum += element;
-	}
-
-	float average = static_cast<float>(sum) / v4.size();
-
-	std::cout << "합 : " << sum << std::endl;
-	std::cout << "평균 : " << average << std::endl;*/
-
-	std::vector<int> v5{ 1,2,3 };
-	std::vector<int>::iterator itr1 = v5.begin();
-
-	while (itr1 != v5.end())
-	{
-		std::cout << *itr1;
-		itr1++;
-	}
-	for (std::vector<int>::iterator itr2 = v5.begin(); itr2 != v5.end(); ++itr2)
-	{
-		std::cout << *itr2;
-	}
-
+	std::vector<int> v3{ 1,2,3,5,4 };
+	std::for_each(v3.begin(), v3.end(), [](const int& val) {std::cout << val << " "; });
 
 	return 0;
 }
