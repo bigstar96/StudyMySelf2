@@ -16,52 +16,142 @@
 // 컨테이너와 분리 되어 있어서 모든 컨테이너에게 적용할 수 있는 장점이 있음.
 
 #include <vector>
-
+// std::vector<int>
 #include <algorithm>
 
-int IntCompare(const void* left, const void* right)
-{
-	int lhs = *static_cast<const int*> (left);
-	int rhs = *static_cast<const int*> (right);
-
-	/*if (lhs > rhs)
-	{
-		return -1;
-	}
-	else if (lhs < rhs)
-	{
-		return 1;
-	}
-
-	return 0;*/
-
-	return rhs - lhs;
-}
+#include <array>
+// std::array<int, 3>
+#include <forward_list>
+// std::forward_list<int>
+#include <list>
+// std::list<int>
+#include <deque>
+// std::deque<int>
+#include <stack>
+// std::stack<int>
+#include <queue>
+// std::queue<int>
 
 int main()
 {
 	std::vector<int> v1{ 1,2,3 };
+	std::for_each(v1.begin(), v1.end(), [](const int& val) {std::cout << val << " "; });
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	qsort(v1.data(), v1.size(), sizeof(v1[0]), IntCompare);
 
-	for (int value1 : v1)
+	std::array<int, 4> intArray = { 0,1,2,3 };
+	for (auto value : intArray)
 	{
-		std::cout << value1 << " ";
+		std::cout << value << " ";
+	}
+	std::cout << std::endl;
+	for (auto iter = intArray.begin(); iter != intArray.end(); ++iter)
+	{
+		std::cout << *iter << " ";
+	}
+	std::cout << std::endl;
+	for (int i = 0; i < intArray.size(); ++i)
+	{
+		std::cout << intArray[i] << " ";
 	}
 	std::cout << std::endl;
 
-	std::vector<int> v2{ 4,3,1,5,2 };
-	qsort(v2.data(), v2.size(), sizeof(v2[0]),
-		[](const void* a, const void* b) { return *static_cast<const int*>(b) - *static_cast<const int*>(a); }
-	);
-	for (int value2 : v2)
+	v1.push_back(4);
+	for (auto value : v1)
 	{
-		std::cout << value2 << " ";
+		std::cout << value << " ";
 	}
 	std::cout << std::endl;
+	v1.pop_back();
+	for (auto value : v1)
+	{
+		std::cout << value << " ";
+	}
+	std::cout << std::endl;
+	v1.resize(5, 0);
+	for (auto value : v1)
+	{
+		std::cout << value << " ";
+	}
+	std::cout << std::endl;
+	v1.erase(v1.begin());
+	for (auto value : v1)
+	{
+		std::cout << value << " ";
+	}
+	std::cout << std::endl;
+	v1.clear();
+	for (auto value : v1)
+	{
+		std::cout << value << " ";
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	std::vector<int> v3{ 1,2,3,5,4 };
-	std::for_each(v3.begin(), v3.end(), [](const int& val) {std::cout << val << " "; });
+
+	// 인스턴스화를 위해서 원소의 타입을 지정합니다.
+	std::forward_list<int> list{ 10,11,20,21 };
+	// find()는 주어진 반복자 안에서 값을 찾아 반복자를 반환합니다.
+	auto itr = std::find(list.begin(), list.end(), 11);
+	// insert_after 멤버함수는 주어진 반복자 뒤에 값을 삽입하고, 해당 반복자를 반환합니다.
+	itr = list.insert_after(itr, 12);
+	// splice_after(itr, list) 멤버 함수는 주어진 반복자 뒤에 list를 옮겨 붙입니다. list는 모두 비워집니다.
+	// list { 10,11,12,10,11,20,21 } , list2 {}
+	std::forward_list<int> list2{ 10,11 };
+	list.splice_after(itr, list2);
+	// list를 정렬합니다.
+	list.sort();
+	// unique()멤버 함수는 중복되는 값을 모두 제거합니다. 람다식은 같은지 판단하기 위한 참/거짓입니다.
+	// 단, 이 비교는 앞뒤 원소만 비교하기 때문에 정렬등이 되어 있어야만 정상 작동합니다.
+	list.unique([](int a, int b) {return a == b; });
+	// 반복자 다음 원소를 지웁니다.
+	list.erase_after(list.begin());
+	// 정렬 오름차순
+	list.sort(std::less<int>());
+	// 정렬 내림차순
+	list.sort(std::greater<int>());
+
+	
+	// 인스턴스화를 위해서는 원소의 타입을 지정합니다.
+	std::list<int> List{ 1,2,3 };
+	// 역순으로 나열합니다.
+	List.reverse();
+	std::list<int> List2{ 4,5,6 };
+	// List를 정렬합니다.
+	List.sort();
+	// 매개변수의 리스트를 모두 옮겨서 하나로 병합니다. **단! 두 리스트 모두 똑같이 정렬되어 있어야 합니다.
+	// (안되어있을때 런타임에러 발생)
+	List2.merge(List);
+
+
+	std::deque<int> deque{ 3,4,5 };
+	// push_front() : 앞에 값을 추가합니다.
+	deque.push_front(1);
+	// push_back() : 뒤에 값을 추가합니다.
+	deque.push_back(6);
+	// pop_front() : 앞에 값을 제거합니다.
+	deque.pop_front();
+	// pop_back() : 뒤에 값을 제거합니다.
+	deque.pop_back();
+
+
+	std::stack<int> stack;
+	// 값을 추가하기 위해서는 push만 사용가능합니다.
+	stack.push(1);	// { 1 }
+	stack.push(2);	// { 2, 1 }
+	stack.push(3);	// { 3, 2, 1 }
+	// 값을 제거하기 위해서는 pop만 사용가능합니다.
+	stack.pop();
+
+	std::stack<int> tempStack(stack);
+	while (!tempStack.empty())
+	{
+		std::cout << tempStack.top() << " ";
+		tempStack.pop();
+	}
+
+
 
 	return 0;
 }
