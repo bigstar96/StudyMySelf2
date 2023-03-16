@@ -151,6 +151,21 @@ int main()
 		tempStack.pop();
 	}
 
+	
+	std::queue<int> queue;
+	// 값을 추가하기 위해서는 push만 사용할 수 있습니다.
+	queue.push(1);	// { 1 }
+	queue.push(2);	// { 1, 2 }
+	queue.push(3);	// { 1, 2, 3 }
+	// 값을 제거하기 위해서는 pop만 사용 가능합니다.
+	queue.pop();	// { 2, 3 }
+	
+	std::queue<int> tempQueue(queue);
+	while (!tempQueue.empty())
+	{
+		std::cout << tempQueue.front() << " ";
+		tempQueue.pop();
+	}
 
 
 	return 0;
