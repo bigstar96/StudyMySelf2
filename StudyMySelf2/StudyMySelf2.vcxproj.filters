@@ -81,6 +81,9 @@
     <ClCompile Include="ClassMyClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="STLvector.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -147,6 +150,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ClassMyClass.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="STLvector.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
