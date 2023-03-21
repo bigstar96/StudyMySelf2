@@ -17,18 +17,20 @@
 class vectorStudent
 {
 public:
-	int mNumber;
-	std::string mName;
-	int mScore;
+	int V_mNumber;
+	std::string V_mName;
+	int V_mScore;
 
 	void Print()
 	{
 		std::cout <<
-			"(" << mNumber << ") " <<
-			mName << " : " <<
-			mScore << std::endl;
+			"(" << V_mNumber << ") " <<
+			V_mName << " : " <<
+			V_mScore << std::endl;
 	}
+	vectorStudent(){}
 };
+
 
 void AddvectorStudent(std::vector<vectorStudent>& vector);
 void DeletevectorStudent(std::vector<vectorStudent>& vector);

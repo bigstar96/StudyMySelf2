@@ -148,6 +148,7 @@
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="STL_map.cpp" />
     <ClCompile Include="STL_vector.cpp" />
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />
+    <ClInclude Include="STL_map.h" />
     <ClInclude Include="STL_vector.h" />
     <ClInclude Include="Student.h" />
   </ItemGroup>

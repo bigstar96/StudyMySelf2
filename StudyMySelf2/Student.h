@@ -4,7 +4,7 @@
 class Student
 {
 	std::string mName;
-	int mScore;
+	int V_mScore;
 
 public:
 	Student(std::string name, int score);
