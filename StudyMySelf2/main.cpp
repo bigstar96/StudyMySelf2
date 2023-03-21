@@ -17,7 +17,7 @@
 // 5. 평균 이상 학생 출력
 // 6. 종료
 
-#include "STLvector.h"
+#include "STL_vector.h"
 
 int main()
 {
@@ -68,6 +68,9 @@ int main()
 				isExit = true;
 				break;
 			default:
+				std::cout << "입력된 문자가 오류가 있습니다." << std::endl;
+				std::cout << "오류로 인해 프로그램을 종료합니다." << std::endl;
+				isExit = true;
 				break;
 		}
 	}

@@ -1,4 +1,4 @@
-#include "STLvector.h"
+#include "STL_vector.h"
 
 void AddvectorStudent(std::vector<vectorStudent>& vector)
 {
@@ -6,14 +6,17 @@ void AddvectorStudent(std::vector<vectorStudent>& vector)
 	vectorStudent newStudent;
 	if (std::cin >> newStudent.mNumber >> newStudent.mName >> newStudent.mScore)
 	{
-		for (auto& elem : vector)
+		/*for (auto& elem : vector)
 		{
 			if (elem.mNumber == newStudent.mNumber)
 			{
 				std::cout << "Áßº¹µÈ ÇÐ»ý ¹øÈ£ÀÔ´Ï´Ù.\n";
 				return;
 			}
-		}
+		}*/
+		[&](auto& elem)-> bool {
+			return elem.mNumber == newStudent.mNumber;
+		};
 		vector.push_back(newStudent);
 	}
 	else
@@ -28,14 +31,17 @@ void DeletevectorStudent(std::vector<vectorStudent>& vector)
 	int num;
 	if (std::cin >> num)
 	{
-		for (auto itr = vector.begin(); itr != vector.end(); ++itr)
+		/*for (auto itr = vector.begin(); itr != vector.end(); ++itr)
 		{
 			if (itr->mNumber == num)
 			{
 				vector.erase(itr);
 				break;
 			}
-		}
+		}*/
+
+		vector.erase(std::remove_if(vector.begin(), vector.end(),
+			[&](auto& elem)-> bool { return elem.mNumber == num; }));
 	}
 	else
 	{
@@ -52,9 +58,10 @@ void VectorAllStudentPrint(std::vector<vectorStudent>& vector)
 	std::cout << std::endl;
 }
 
+#include <numeric>
 void VectorAverageTotalPrint(std::vector<vectorStudent>& vector)
 {
-	int num{}, count{};
+	/*int num{}, count{};
 
 	for (auto itr = vector.begin(); itr != vector.end(); ++itr)
 	{
@@ -62,12 +69,25 @@ void VectorAverageTotalPrint(std::vector<vectorStudent>& vector)
 		++count;
 	}
 	std::cout << "ÃÑÁ¡ : " << num << std::endl;
-	std::cout << "Æò±Õ : " << num / count << std::endl;
+	std::cout << "Æò±Õ : " << num / count << std::endl;*/
+
+	int total{ 0 };
+	total = std::accumulate(
+		vector.begin(),
+		vector.end(),
+		0,
+		[](int accum, auto& elem)
+		{return accum += elem.mScore; }
+	);
+	std::cout << "ÃÑÁ¡ : " << total <<
+		"\nÆò±Õ : " << total / vector.size() << std::endl;
 }
+
+#include <algorithm>
 
 void VectorAboveAveragePrint(std::vector<vectorStudent>& vector)
 {
-	int num{}, count{};
+	/*int num{}, count{};
 
 	for (auto itr = vector.begin(); itr != vector.end(); ++itr)
 	{
@@ -82,5 +102,19 @@ void VectorAboveAveragePrint(std::vector<vectorStudent>& vector)
 		{
 			std::cout << itr->mNumber << " - " << itr->mName << " : " << itr->mScore << std::endl;
 		}
+	}*/
+
+	int average{ 0 };
+	for (auto& elem : vector)
+	{
+		average += elem.mScore;
 	}
+	average /= vector.size();
+	std::for_each(vector.begin(), vector.end(),
+		[&](auto& elem) {
+			if (elem.mScore >= average)
+			{
+				elem.Print();
+			}
+		});
 }
