@@ -73,7 +73,9 @@ void mapAboveAveragePrint(std::map<int, STL_mapStudent>& container)
 	{
 		average += elem.second.M_mScore;
 	}
+
 	average /= container.size();
+	std::cout << "ЦђБе : " << average << std::endl;
 
 	for (auto& elem : container)
 	{
