@@ -1,258 +1,324 @@
 #include <iostream>
 
-int operator""km(long double dist)
-{
-	return static_cast<int>(dist);
-}
+#include <list>
 
-class X
+class Demon
 {
-public:
-	// 복사 생성자를 기본 생성자로
-	X(const X&) = default;
-
-	// 복사 배정 금지
-	X& operator=(const X&) = delete;
 };
 
-class MyClass
+class Warrior
 {
-public:
-	explicit operator int() { return 100; }
 };
 
 #include <vector>
-template<class T>
-using Vector = std::vector<T>;
 
-#include <type_traits>
+template<class T>
+T swap(T& a, T& b)
+{
+	T temp(a);
+	a = b;
+	b = temp;
+}
+
+template<class T>
+T swap(T& a, T& b)
+{
+	T tmp = std::move(a);
+	a = std::move(b);
+	b = std::move(tmp);
+}
+
+template<typename T>
+void templateFunction(T&& x)
+{
+	function(x);
+}
+
+template<typename T>
+void TemplateFucntion(T&& x)
+{
+	function(std::forward<T>(x));
+}
+
+enum Flags {
+	none = 0,
+	slow = 1,
+	paralyse = 2,
+	bleed = 4,
+	poison = 8
+};
+
+constexpr int operator| (Flags f1, Flags f2)
+{
+	return Flags(int(f1) | int(f2));
+}
+
+
+class MyHero
+{
+	int mHP;
+	int mMP;
+public:
+	MyHero() : MyHero(0, 0) {} // old - { mHP = 0; mMP = 0; }
+	MyHero(int hp) : MyHero(hp, 0) {}// old - { mHP = hp; mMP = 0; }
+	MyHero(int hp, int mp) { mHP = hp; mMP = mp; }
+};
+
+
+class Base
+{
+public:
+	virtual void func1()const{}
+	void func2(){}
+};
+
+class Derived : public Base
+{
+	void func1(){}// 오버라이드 아님 (const 타입이 아님)
+	void func2(){}// 오버라이드 아님 (Base::func2()는 virtual이 아님)
+};
+
+class Base
+{
+public:
+	virtual void func3() const final {}
+	virtual void func4() {}
+};
+
+class Derived : public Base
+{
+	// void func3() const override {} // 컴파일에러
+	void func4() override {}
+};
+
+
+//<enum class>
+enum class Color						// enum class 사용법
+{
+	red,
+	blue
+};
+enum class TrafficLight : char			// 내부 테이터를 char로 한정하여 공간 절약
+{
+	red,
+	yellow,
+	green
+};
+
+
+//<반환형 접미사(suffix return type)
+/*
+template<class T, class U>
+ decltype(x + y) Add(T x, T y) // error
+{
+	return x + y;
+}
+*/
+template<class T, class U>
+auto Add(T x, T y) -> decltype(x + y)
+{
+	return x + y;
+}
+
+/*
+반환형 접미사는 우선 반환형을 auto로 지정한 후 매개변수 이후로 미루는 방식입니다.
+auto function - name(arguments)->ret - type {}
+*/
+
+
+//<원시 문자열 리터럴(raw string literal)>
+// ex) std::string str = "\"\'\\\'\"";
+// 예는 알아보기 힘듦
+// std::string str2 = R"("'\'")";
+// 원시(raw)의 첫글자를 사용하여 R을 붙이고 "( 와 )" 사이에 문자열을 지정하면 됩니다.
+
+
+//<가변 인자 템플릿>
+/*
+Warrior* Make() { return new Warrior; }
+Archer* Make(int arg1) { return new Archer; }
+Wizard* Make(int arg1, int arg2) { return new Wizard; }
+*/
+template<class T>
+T* Make()
+{
+	return new T;
+}
+template<class T, class...Types>
+T* Make(Types&& ... args)
+{
+	return new T(std::forward<Types>(args)...);
+}
+/*
+1. 템플릿 함수에서 받는 매개변수를 별도의 타입들(class... Types)로 지정을 해 두고 감변형태인 ...을 붙입니다.
+2. 생성자에 가변 매개변수를 그대로 전달하기 위해서 C++11의 std::forward<T>()...템플릿 함수를 사용합니다.
+perfect forwarding 과 variadic template를 사용하면 완벽한 팩토리를 만들 수 있게 됩니다. *기억*
+*/
+
+
+//<extern 템플릿>
+/*
+template<typename T>
+void MyFunction()
+{
+	// 수백 줄 코드
+}
+// MySource1.cpp
+void Func1()
+{
+	MyFunction<int>();
+}
+// MySource2.cpp
+void Func2()
+{
+	MyFunction<int>();
+}
+이렇게 구성된 코드들을 컴파일러가 컴파일 하고 난 결과는 다음과 같아질 겁니다.
+MySource1.o		Func1();
+				MyFunction<int>();
+MySource2.o		Func2();
+				MyFunction<int>();
+컴파일러는 인스턴스화 될때마다 코드를 생성하므로 위와 같이 중복 생성/컴파일 될 것입니다.
+
+이러한 중복을 피하기 위해 다음과 같이 extern으로 선언할 수 있게 되었습니다.
+
+extern template void MyFunction<int>();
+void Func2()
+{
+	MyFunction<int>();
+}
+
+*/
 
 int main()
 {
-	int distance = 1.0km;
-	std::cout << distance;
+	void function1(int);
+	void function2(char*);
 
-	MyClass c;
+	function1(0);
+	function2(nullptr);
 
-	// 컴파일 에러 : 암시적 변환
-	// int val1 = c;
+	auto myInteger = 7;
 
-	// 성공
-	int val2 = static_cast<int>(c);
 
-	Vector<int> vector{ 1,2,3 };
-	
+	std::list<int> myList{};
+	for (std::list<int>::iterator itr = myList.begin(); itr != myList.end(); ++itr)
 	{
-		struct Less
-		{
-			bool operator()(const X& a, const X& b)
-			{
-				return true;
-			}
-		};
-
-		// ERROR : Less 객체는 로컬
-		// sort(v.begin(), v.end(), Less());
+		std::cout << *itr << " ";
+	}
+	std::cout << std::endl;
+	for (auto itr = myList.begin(); itr != myList.end(); ++itr)
+	{
+		std::cout << *itr << " ";
 	}
 
+	int myValue = { 0 };
+	std::string myName = { "doggy" };
+
+	void fucntion3(std::initializer_list<int> initializer);
+	// function3({ 1,2 });
+
+	int myValue1 = 3;
+	int myArray1[] = {1,2,3,4};
+	Demon myDemon1 = Demon();
+	Warrior* pWarrior1 = new Warrior;
+
+	int myValue2{ 3 };
+	int myArray2[]{ 1,2,3,4 };
+	Demon myDemon2{};
+	Warrior* pWarrior2 = new Warrior{};
+
 	
+	std::vector<int> v;
+	for (auto x : v) {}
+	for (auto& x : v) {}
+	for (auto x : { 1,2,3,4,5 }) {}
+
+	[](int a, int b) {};
+	[](int a) -> int { return a + a; };
+
+	Flags myStatus{ none };
+	switch (myStatus)
+	{
+	case none:
+		break;
+
+	case slow | paralyse:
+		break;
+	
+	}
+
+
+
 }
 
 
 /*
-16_1_0_C++11
+<범위기반 for(range-based for)>
 
-<언어 - 일반>
+std::vector<int> v;
+for(auto x : v){}
 
-nullptr
-auto
-Initializer list
-uniform initialization
-Lambda Expression
-R-value reference & std:move
-constexpr
+for(auto& x : v){}
 
-decltype
-- declared type의 약자로 표현식의 타입을 알려주는 키워드입니다.
-ex) 
-int x;
-decltype(x+1) y = x + 1;
-auto와는 달리 수식의 값으로 타입을 추론합니다.
+for(auto x : {1,2,3,4,5}){}
 
-noexcept
-- 함수 뒤에 표기하여 예외를 던지지 않는다는 것을 명시합니다.
 
-예외 복사 및 다시 던지기
-- 현재 예외를 복사해서 다시 던지기가 가능합니다.
-std::current_exception();
-std::rethrow_exception(...);
-
-인라인 이름공간(inline namespace)
-- 이름 공간 안에 또 다른 이름 공간을 만들어 둡니다.
-ex)
-nsmaespace NAME1
+<람다식>
+[=]()mutable throw() -> int
 {
-	inline namespace NAME2 {...}
+	int n = x + y;
+	x = y;
+	y = n;
+	return n;
 }
 
-사용자 지정 리터럴
-- 리터럴 뒤에 붙는 첨자를 이용해 10km 와 같이 사용자 지정 리터럴을 만들 수 있습니다.
-int operator""km(long double dist)
-{
-	return static_cast<int>(dist);
-}
+1. [=] - 캡쳐절 : 기본적으로 람다식은 외부의 변수들을 사용할 수 없습니다.
+[] : 외부 변수 사용 불가
+[&] : 외부 변수를 참조형으로 사용 (Call by Reference)
+[=] : 외부 변수를 값으로 사용 (Call by Value)
+
+2. () - 파라미터 : 함수에 사용될 파라미터들을 정의합니다.
+3. mutable - 옵션. 일단 무시
+4. throw - 옵션. 일단 무시
+-> int - 리턴값 : 반환하는 값이 있을때 사용. 반환 자료형을 지정해야합니다.
+
+ex) [](int a, int b) {} - 매개변수 2개를 받는 익명함수
+[](int a) -> int { return result; } - 매개변수 1개와 반환값이 있는 익명함수
 
 
-<언어 - 클래스>
-기본 이동 생성자 및 복사 생성자
-대리 생성자
-클래스 내부에서의 멤버 초기화
-override & final
-
-상속 생성자
-- 기반 클래스의 생성자를 가져올 수 있습니다.
-ex)
-class Derived : public Base
-{
-public:
-	using Base::Base;
-}
-
-= default, = delete
-- delete : 특정 함수 정의를 금지합니다.
-default : 기본 생성자를 명시적으로 지정합니다.
-ex)
-class X
-{
-public:
-	// 복사 생성자를 기본 생성자로
-	X(const X&) = default;
-
-	// 복사 배정 금지
-	X& operator=(const X&) = delete;
-};
-
-명시적 형변환 연산자
-- 생성자에서만 사용가능하던 explicit 키워드를 연산자에 적용 가능합니다.
-ex)
-class MyClass
-{
-public:
-	explicit operator int() { return 100; }
-};
-
-int main()
-{
-	MyClass c;
-	
-	// 컴파일 에러 : 암시적 변환
-	int val1 = c;
-
-	// 성공
-	int val2 = static_cast<int>(c);
-}
+<우측값 참조 (R-value reference)와 std::move 구문>
 
 
-<언어 - 타입>
-enum class
-long long - 64비트변수 추가
+<기본 이동 생성자 및 복사 생성자
 
-<언어 - 기타>
-반환형 접미사(suffix return type)
-원시 문자열 리터럴(raw string literal)
+MyClass(const Myclass&)					복사 생성자
+MyClass& operator=(const MyClass&);		복사 대입
+MyClass(MyClass&&);						이동 생성자
+MyClass& operator=(MyClass&&);			이동 대입
 
-std:static_assert
-- 기존의 assert는 실행시간에 판단하지만, 조금 더 오류를 일찍 걸러내기 위해서는 컴파일 시간에 판정할 필요도 있습니다.
-const_expr을 판정합니다.
+이동 생성자
+- 이동은 객체의 값을 다른 객체로 옮기는 것으로, 복사와는 달리 실제로 다른 객체로 값을 옮겨져서 원본은
+데이터를 유실하게 되어 버립니다. 이러한 이동은 원본값이 이름 없는 객체(unnamed object)일 때만 발생합니다.
 
-메모리 정렬
-- 객체 내부의 변수들의 메모리 경계를 지정할 수 있습니다.
-ex)
-alignas(bytes)
+이름 없는 객체 = 무명 객체, 임시라서 이름이 필요 없는 경우인데, 주로 함수의 반환값등이 이런 무명 객체가 됩니다.
+이런 무명 객체를 만들 때 다시 사용될 일이 없으므로 복사할 필요가 없고, 그냥 이동해 버리면 그만입니다.
+이동 생성자는 매개변수로 하나의 객체를 받는데 우측값 참조(R-value reference)형이라는 && 연산자가 사용됩니다.
+Dog(Dog&& dog);
 
-struct alignas(16) STRUCT
-{
-	int myInt;
-};
-이 구조체는 16바이트로 정렬되므로 실제 4바이트라 해도 정렬되어 16바이트의 공간을 차지하게 됩니다.
-12 바이트는 비어있습니다.
+Dog dog1;			// 기본 생성자
+Dog dog2 = dog1;	// 복사 생성자
+Dog dog3 = Dog();	// 이동 생성자
 
 
-<언어 - 템플릿>
-가변 인자 템플릿(variadic template)
-extern 템플릿
-
-템플릿 별명
-- using을 통해 템플릿 별명을 지정할 수 있습니다.
-ex)
-template<class T>
-using Vector = std::vector<T>;
-
-int main()
-{
-	Vector<int> vector{ 1,2,3 };
-}
-
-지역 타입 템플릿 인자
-- 과거에는 지역 객체를 템플릿 인자로 사용하지 못했습니다.
-ex)
-{
-	struct Less
-	{
-		bool operator()(const X& a, const X& b)
-		{
-			return true;
-		}
-	}
-
-	// ERROR : Less 객체는 로컬
-	sort(v.begin(), v.end(), Less());
-}
-C++11 에서는 이런 로컬 객체도 사용가능합니다. 그래서 람다식도 사용가능해 진 것입니다.
-
-> 표기 개선
-- >> 시프트 연산자와 구분을 하지 못해 과거에는 제한적이었으나, C++11 에서 해결되었습니다.
-ex)
-std::list<std::list<int> >	list;	// old
-std::list<std::list<int>>	list;	// c++11
+이동 할당 연산자
+- 값 복사가 아닌 이동을 배정문으로 표현하고 싶으면 Dog& operator=(Dog&&) 연산자를 오버로딩 해야 합니다.
+Dog dog1;
+Dog dog2 = dog1;
+Dog dog3 = dog1 + dog2;		// 이동 생성자
 
 
-<STL 일반>
-std::unique_ptr
-std::shared_ptr
-std::weak_ptr
-std::tuple
-std::function & std::bind
-정규표현식(regular expression)
 
-타입 특성(type traits)
-- 컴파일타임에 주어진 객체의 타입정보(type traits)를 구할 수 있습니다.
-<type_traits> 헤더에 선언되어 있으며, is_arry, is_class, is_base_of 등 다양한 기능을 제공합니다.
-너무 많아서 실제 사용하게 될 때 조금씩 설명하도록 하겠습니다.
-
-시간 유틸리티
-- 정밀한 시간을 관리할 수 있게 도와주는 기능들입니다.
-게임에서는 조금 다른 기능을 사용하는데, 프레임워크 제작에서 알려드리겠습니다.
-
-난수 생성
-- 컴퓨터는 정해진 입/출력 을 가지고 있어서 무엇인가를 만들어 내지는 못해서 결국 흉내낼 뿐이죠.
-그래서 임의의 수 같은 것은 최대한 그럴싸 하게 만들어야 합니다.
-이런 난수의 기능이 조금 더 강화 되었습니다.
-
-
-<STL 컨테이너 및 알고리즘>
-std::array
-std::forward_list
-
-unordered_계열 컨테이너
-- map, set 에 정렬이 빠진 unordered_map, unordered_set 이 추가되었습니다.
-
-
-<STL 동시성>
-std::thred
-상호 배제(Mutual Exclusion) - std::mutex
-std::lock
-std::async
 
 
 */
