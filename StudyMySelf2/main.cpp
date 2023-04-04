@@ -1,101 +1,37 @@
 #include <iostream>
 
-#include <thread>
-#include <mutex>
-
-std::mutex gMutex;
-
-void PrintInt()
+auto Function(int x, int y)
 {
-	/*for (int i = 0; i < 500; ++i)
-	{
-		gMutex.lock();
-		std::cout << "job1 : " << i << std::endl;
-		gMutex.unlock();
-	}*/
-
-	int i = 0;
-	while (i < 500)
-	{
-		if (gMutex.try_lock())
-		{
-			std::cout << "job1 : " << i << std::endl;
-			++i;
-			gMutex.unlock();
-		}
-		else
-		{
-			// 대기
-		}
-	}
-}
-void PrintAscii()
-{
-	/*for (int repeat = 0; repeat < 5; ++repeat)
-	{
-		for (int i = 33; i < 126; ++i)
-		{
-			gMutex.lock();
-			std::cout << "job2 : " << (char)(i) << std::endl;
-			gMutex.unlock();
-		}
-	}*/
-
-	for (int repeat = 0; repeat < 5; ++repeat)
-	{
-		int i = 33;
-		while (i < 126)
-		{
-			if (gMutex.try_lock())
-			{
-				std::cout << "job2 : " << (char)(i) << std::endl;
-				++i;
-				gMutex.unlock();
-			}
-			else
-			{
-				// 대기
-			}
-		}
-	}
+	return x + y;
 }
 
-#include <future>
-void PrintIntFuture()
+decltype(auto) Function2()
 {
-	for (int i = 0; i < 500; ++i)
-	{
-		std::cout << "job1 : " << i << std::endl;
-	}
+	return Function(1, 2);
 }
-void PrintAsciiFuture()
-{
-	for (int repeat = 0; repeat < 5; ++repeat)
-	{
-		for (int i = 33; i < 126; ++i)
-		{
-			std::cout << "job2 : " << (char)(i) << std::endl;
-		}
-	}
-}
+
+template<typename T> T pi = T(3.141592653589793);
+
 
 int main()
 {
-	/*std::thread job1(PrintInt);
-	std::thread job2(PrintAscii);
-	job1.join();
-	job2.join();
+	auto hex = 0x2A;
 
-	std::cout << "---모든 작업이 끝났습니다.---" << std::endl;*/
+	auto bin = 0b01010;
 
-	std::future<void> async1 = std::async(PrintIntFuture);
-	std::future<void> async2 = std::async(PrintAsciiFuture);
+	auto x = 4;
+	auto z = [y = x + 1] {
+		return y + 1;
+	}();
 
-	std::cout << "---모든 작업이 끝났습니다.---" << std::endl;
-	async1.get();
-	std::cout << "PrintInt 종료." << std::endl;
-	async2.get();
-	std::cout << "PrintAscii 종료" << std::endl;
+	// auto sum = [](const auto a, const auto b) { return a + b; }();
 
+	std::cout << "INT PI : " << pi<int> << std::endl;
+	std::cout << "FLOAT PI : " << pi<float> << std::endl;
+
+	auto money = 100'000;
+
+	auto string = "HELLO WORLD"s;
+	auto minute = 60s;
 
 }
