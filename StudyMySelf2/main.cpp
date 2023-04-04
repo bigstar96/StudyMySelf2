@@ -1,93 +1,101 @@
 #include <iostream>
 
-class MyClass
+#include <thread>
+#include <mutex>
+
+std::mutex gMutex;
+
+void PrintInt()
 {
-
-};
-
-class MySong
-{
-public:
-	int mTackNo;
-	std::string mName;
-	MySong(int no, std::string name) : mTackNo{ no }, mName{ name } {}
-};
-
-class Image
-{};
-
-class Demon
-{
-	std::shared_ptr<Image> mspImage;
-public:
-	Demon(std::shared_ptr<Image> image) : mspImage{ image } {}
-};
-
-
-#include <tuple>
-
-#include <functional>
-// 함수
-void MyFunction(const int arg1){}
-// 구조체 () 연산자 오버로딩
-struct MyStruct
-{
-	void operator()(){}
-};
-
-void F(int arg1, char arg2)
-{
-	std::cout << arg1 << ", " << arg2 << std::endl;
-}
-using namespace std::placeholders;
-
-#include<regex>
-
-int main()
-{
-	// 스마트포인터 전용 코드
-	std::unique_ptr<MyClass> p{ std::make_unique<MyClass>() };
-
-	std::unique_ptr<MySong> spSong = std::make_unique<MySong>(1, "BattleBGM");
-	// 포인터 접근
-	std::cout << spSong->mTackNo << " : " << spSong->mName << std::endl;
-	// unique_ptr 멤버함수 접근
-	spSong.release();
-
-	std::shared_ptr<Image> spImage = std::make_shared<Image>();
+	/*for (int i = 0; i < 500; ++i)
 	{
-		std::unique_ptr<Demon> demon1 = std::make_unique<Demon>(spImage);
+		gMutex.lock();
+		std::cout << "job1 : " << i << std::endl;
+		gMutex.unlock();
+	}*/
+
+	int i = 0;
+	while (i < 500)
+	{
+		if (gMutex.try_lock())
 		{
-			std::unique_ptr<Demon> demon2 = std::make_unique<Demon>(spImage);
+			std::cout << "job1 : " << i << std::endl;
+			++i;
+			gMutex.unlock();
+		}
+		else
+		{
+			// 대기
+		}
+	}
+}
+void PrintAscii()
+{
+	/*for (int repeat = 0; repeat < 5; ++repeat)
+	{
+		for (int i = 33; i < 126; ++i)
+		{
+			gMutex.lock();
+			std::cout << "job2 : " << (char)(i) << std::endl;
+			gMutex.unlock();
+		}
+	}*/
+
+	for (int repeat = 0; repeat < 5; ++repeat)
+	{
+		int i = 33;
+		while (i < 126)
+		{
+			if (gMutex.try_lock())
 			{
-				std::unique_ptr<Demon> demon3 = std::make_unique<Demon>(spImage);
+				std::cout << "job2 : " << (char)(i) << std::endl;
+				++i;
+				gMutex.unlock();
+			}
+			else
+			{
+				// 대기
 			}
 		}
 	}
+}
 
-	std::tuple<int, std::string, std::string> song;
-	song = std::make_tuple(1, "helloween", "Dr.Stein");
-	std::cout << "TrackNo : " << std::get<0>(song) << std::endl;
-	std::cout << "Artist : " << std::get<1>(song) << std::endl;
-	std::cout << "Title : " << std::get<2>(song) << std::endl;
+#include <future>
+void PrintIntFuture()
+{
+	for (int i = 0; i < 500; ++i)
+	{
+		std::cout << "job1 : " << i << std::endl;
+	}
+}
+void PrintAsciiFuture()
+{
+	for (int repeat = 0; repeat < 5; ++repeat)
+	{
+		for (int i = 33; i < 126; ++i)
+		{
+			std::cout << "job2 : " << (char)(i) << std::endl;
+		}
+	}
+}
 
-	// 함수
-	std::function<void(const int)> functor1 = MyFunction;
-	// 구조체 연산자
-	std::function<void()> functor2 = MyStruct();
-	// 람다식
-	std::function<void()> functor3 = []() {};
+int main()
+{
+	/*std::thread job1(PrintInt);
+	std::thread job2(PrintAscii);
+	job1.join();
+	job2.join();
 
-	// 매개변수 2개를 받을 수 있도록 바인딩을 합니다.
-	auto functor4 = std::bind(F, _1, _2);
-	functor4(1, 'a');
-	// 첫번째는 값을 2로 고정하고 추가 인자를 하나 받습니다.
-	auto functor5 = std::bind(F, 2, _1);
-	functor5('b');
-	// 두개 인자를 받는 대신, 순서가 바뀌어 있습니다.
-	auto functor6 = std::bind(F, _2, _1);
-	functor6('c', 3);
+	std::cout << "---모든 작업이 끝났습니다.---" << std::endl;*/
 
+	std::future<void> async1 = std::async(PrintIntFuture);
+	std::future<void> async2 = std::async(PrintAsciiFuture);
+
+	std::cout << "---모든 작업이 끝났습니다.---" << std::endl;
+	async1.get();
+	std::cout << "PrintInt 종료." << std::endl;
+	async2.get();
+	std::cout << "PrintAscii 종료" << std::endl;
 
 
 }
