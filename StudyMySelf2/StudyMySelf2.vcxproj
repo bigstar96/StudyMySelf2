@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="binarytree.cpp" />
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="ClassAnimal.cpp" />
     <ClCompile Include="ClassCharacter.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="binarytree.h" />
     <ClInclude Include="Cat.h" />
     <ClInclude Include="ClassAnimal.h" />
     <ClInclude Include="ClassCharacter.h" />

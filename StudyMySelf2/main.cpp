@@ -1,37 +1,36 @@
 #include <iostream>
 
-auto Function(int x, int y)
-{
-	return x + y;
-}
-
-decltype(auto) Function2()
-{
-	return Function(1, 2);
-}
-
-template<typename T> T pi = T(3.141592653589793);
-
+#include "binarytree.h"
 
 int main()
 {
-	auto hex = 0x2A;
+	mytree::Binarytree myTree;
 
-	auto bin = 0b01010;
+	auto pRoot = myTree.GetRoot();
+	pRoot->mData = 1;
 
-	auto x = 4;
-	auto z = [y = x + 1] {
-		return y + 1;
-	}();
+	auto pNode = myTree.InsertLeft(pRoot, 2);
+	myTree.InsertLeft(pNode, 4);
+	myTree.InsertRight(pNode, 5);
+	pNode = myTree.InsertRight(pRoot, 3);
+	myTree.InsertLeft(pNode, 6);
+	myTree.InsertRight(pNode, 7);
 
-	// auto sum = [](const auto a, const auto b) { return a + b; }();
+	std::cout << "---In Order---" << std::endl;
+	myTree.InOrder(pRoot);
+	std::cout << std::endl << "---Pre Order---" << std::endl;
+	myTree.PreOrder(pRoot);
+	std::cout << std::endl << "---Post Order---" << std::endl;
+	myTree.PostOrder(pRoot);
+	std::cout << std::endl;
 
-	std::cout << "INT PI : " << pi<int> << std::endl;
-	std::cout << "FLOAT PI : " << pi<float> << std::endl;
 
-	auto money = 100'000;
+	myTree.BreadthFirst();
+	std::cout << std::endl;
+	myTree.DepthFirst();
+	std::cout << std::endl;
 
-	auto string = "HELLO WORLD"s;
-	auto minute = 60s;
+	std::cout << myTree.Search(pRoot, 6) << std::endl;
+	std::cout << myTree.Sum(pRoot) << std::endl;
 
 }
