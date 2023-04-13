@@ -166,6 +166,25 @@ namespace mytree
 			}
 			return Sum(node->mLeft) + node->mData + Sum(node->mRight);
 		}
+
+		Node* Insert(Node* node, int data)
+		{
+			if (node == nullptr)
+			{
+				return CreateNode(data);
+			}
+
+			if (data < node->mData)
+			{
+				node->mLeft = Insert(node->mLeft, data);
+			}
+			else if (data > node->mData)
+			{
+				node->mRight = Insert(node->mRight, data);
+			}
+			
+			return node;
+		}
 	};
 }
 

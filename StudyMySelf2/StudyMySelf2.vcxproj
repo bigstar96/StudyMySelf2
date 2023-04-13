@@ -146,6 +146,7 @@
     <ClCompile Include="MySelfString.cpp" />
     <ClCompile Include="namespaceGame.cpp" />
     <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Sort.cpp" />
     <ClCompile Include="Stack.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="MySelfString.h" />
     <ClInclude Include="namespaceGame.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sort.h" />
