@@ -1,369 +1,315 @@
 #include <iostream>
+
 #include <vector>
-#include <map>
-#include <string>
 
-
-using accum_history = std::map<int, bool>;
-
-bool CanAccumulate(int sum, const std::vector<int>& numbers, accum_history& h)
+int64_t fibonacci1(const int n)
 {
-	if (h.count(sum) == 1)
+	if (n == 0)
 	{
-		return h[sum];
-	}
-	if (sum == 0)
-	{
-		return true;
-	}
-	if (sum < 0)
-	{
-		return false;
+		return 0;
 	}
 
-	int remain{};
+	std::vector<int64_t> table(n + 1);
+	table[1] = 1;
 
-	for (auto e : numbers)
+	/*
+	for (int i = 0; i <= n; ++i)
 	{
-		remain = sum - e;
-		if (CanAccumulate(remain, numbers, h) == true)
+		if (i + 2 <= n)
 		{
-			h[sum] = true;
-			return true;
+			table[i + 2] += table[i];
+		}
+		if (i + 1 <= n)
+		{
+			table[i + 1] += table[i];
 		}
 	}
-	h[sum] = false;
-	return false;
+	*/
+
+	for (int i = 2; i <= n; ++i)
+	{
+		table[i] = table[i - 1] + table[i - 2];
+	}
+
+	return table[n];
 }
+
+#include <vector>
+
+int FindWays(int m, int n)
+{
+	std::vector<std::vector<int>> table(m + 1, std::vector<int>(n + 1, 0));
+	table[1][1] = 1;
+
+	for (int row = 0; row <= m; ++row)
+	{
+		for (int col = 0; col <= n; ++col)
+		{
+			if (row + 1 <= m)
+			{
+				table[row + 1][col] += table[row][col];
+			}
+
+			if (col + 1 <= n)
+			{
+				table[row][col + 1] += table[row][col];
+			}
+		}
+	}
+	return table[m][n];
+}
+
+#include <vector>
+
+bool CanAccumulate(int sum, const std::vector<int>& numbers)
+{
+	std::vector<bool> table(sum + 1);
+	table[0] = true;
+
+	for (int i = 0; i <= sum; ++i)
+	{
+		if (table[i] == true)
+		{
+			for (auto e : numbers)
+			{
+				if (i + e <= sum)
+				{
+					table[i + e] = true;
+				}
+			}
+		}
+	}
+	return table[sum];
+}
+
+#include <vector>
 
 using int_vector = std::vector<int>;
-using accum_history_map_shared = std::map<int, std::shared_ptr<int_vector>>;
 
-std::shared_ptr<int_vector> HowAccumulate(
-	int sum,
-	const int_vector& numbers,
-	std::shared_ptr<accum_history_map_shared> h)
+std::shared_ptr<int_vector> HowAccumulate(int sum, const int_vector& numbers)
 {
+	std::vector<std::shared_ptr<int_vector>> table(sum + 1, nullptr);
+
+	table[0] = std::make_shared<int_vector>(0);
+
+	for (int i = 0; i <= sum; ++i)
 	{
-		if (h->count(sum) == 1)
+		if (table[i] != nullptr)
 		{
-			return (*h)[sum];
-		}
-		if (sum == 0)
-		{
-			return std::make_shared<int_vector>();
-		}
-		if (sum < 0)
-		{
-			return nullptr;
-		}
-
-		int remain{};
-
-		for (auto e : numbers)
-		{
-			remain = sum - e;
-			auto ret = HowAccumulate(remain, numbers, h);
-
-			if (ret != nullptr)
+			for (auto e : numbers)
 			{
-				ret->push_back(e);
-				(*h)[sum] = ret;
-				return (*h)[sum];
+				if (i + e <= sum)
+				{
+					table[i + e] = std::make_shared<int_vector>(*table[i]);
+					table[i + e]->push_back(e);
+				}
 			}
 		}
 	}
-
-	(*h)[sum] = nullptr;
-	return nullptr;
+	return table[sum];
 }
 
-void Print(int_vector* r)
-{
-	std::cout << "{ ";
+#include <vector>
 
-	if (r != nullptr)
-	{
-		for (auto e : *r)
-		{
-			std::cout << e << " ";
-		}
-	}
-	std::cout << "}" << std::endl;
-}
-
-
+using int_vector = std::vector<int>;
 std::shared_ptr<int_vector> OptimizeAccumulate(
-	int sum,
-	const int_vector& numbers,
-	std::shared_ptr<accum_history_map_shared> h
+	int sum, const int_vector& numbers
 )
 {
-	if (h->count(sum) == 1)
-	{
-		return (*h)[sum];
-	}
-	if (sum == 0)
-	{
-		return std::make_shared<int_vector>();
-	}
-	if (sum < 0)
-	{
-		return nullptr;
-	}
+	std::vector<std::shared_ptr<int_vector>> table(sum + 1, nullptr);
+	table[0] = std::make_shared<int_vector>(0);
 
-	int remain{};
-	std::shared_ptr<int_vector> optimized = nullptr;
-
-	for (auto e : numbers)
+	for (int i = 0; i <= sum; ++i)
 	{
-		remain = sum - e;
-		auto ret = OptimizeAccumulate(remain, numbers, h);
-
-		if (ret != nullptr)
+		if (table[i] != nullptr)
 		{
-			std::shared_ptr<int_vector> v = std::make_shared<int_vector>();
-			v->resize(ret->size());
-			std::copy(ret->begin(), ret->end(), v->begin());
-			v->push_back(e);
-			if (optimized == nullptr || v->size() < optimized->size())
+			for (auto e : numbers)
 			{
-				optimized = v;
+				if (i + e <= sum)
+				{
+					if (table[i + e] == nullptr || (table[i + e]->size() - 1 > table[i]->size()))
+					{
+						table[i + e] = std::make_shared<int_vector>(*table[i]);
+						table[i + e]->push_back(e);
+					}
+				}
 			}
 		}
 	}
 
-	(*h)[sum] = optimized;
-	return (*h)[sum];
+	return table[sum];
 }
 
-bool CanGenerate(std::string target, const std::vector<std::string>& stringlist)
+#include <vector>
+#include <string>	
+bool CanGenerate2(
+	const std::string target, const std::vector<std::string>& stringList
+)
 {
-	if (target == "")
-	{
-		return true;
-	}
+	std::vector<bool> table(target.length() + 1, false);
 
-	for (auto e : stringlist)
+	table[0] = true;
+	
+	for (unsigned int i = 0; i <= target.length(); ++i)
 	{
-		if (target.find(e) == 0)
+		if (table[i] == true)
 		{
-			const std::string subs = target.substr(e.length());
-			if (CanGenerate(subs, stringlist))
+			for (auto e : stringList)
 			{
-				return true;
+				if (target.substr(i, e.length()) == e)
+				{
+					if (i + e.length() <= target.length())
+					{
+						table[i + e.length()] = true;
+					}
+				}
 			}
 		}
 	}
 
-	return false;
+	return table[target.length()];
 }
 
-using gen_history = std::map<std::string, bool>;
-
-bool CanGenerate2(std::string target, const std::vector<std::string>& stringlist, gen_history& h)
+#include <vector>
+#include <string>
+int HowManyGenerate2(
+	const std::string target, const std::vector<std::string>& stringlist
+)
 {
-	if (h.count(target) == 1)
-	{
-		return h[target];
-	}
+	std::vector<int> table(target.length() + 1, 0);
 
-	if (target == "")
-	{
-		return true;
-	}
+	table[0] = 1;
 
-	for (auto e : stringlist)
+	for (unsigned int i = 0; i <= target.length(); ++i)
 	{
-		if (target.find(e) == 0)
+		if (table[i] > 0)
 		{
-			const std::string subs = target.substr(e.length());
-			if (CanGenerate2(subs, stringlist, h))
+			for (auto e : stringlist)
 			{
-				h[target] = true;
-				return h[target];
+				if (target.substr(i, e.length()) == e)
+				{
+					if (i + e.length() <= target.length())
+					{
+						table[i + e.length()] += table[i];
+					}
+				}
 			}
 		}
 	}
 
-	h[target] = false;
-	return h[target];
+	return table[target.length()];
 }
 
-
-int CanGenerate3(std::string target, const std::vector<std::string>& stringlist)
-{
-	if (target == "")
-	{
-		return 1;
-	}
-
-	int count{ 0 };
-
-	for (auto e : stringlist)
-	{
-		if (target.find(e) == 0)
-		{
-			const std::string subs = target.substr(e.length());
-			count += CanGenerate3(subs, stringlist);
-		}
-	}
-
-	return count;
-}
-
-using gen_history_map = std::map<std::string, int>;
-
-int HowManyGenerate(std::string target, const std::vector<std::string>& stringlist, gen_history_map& h)
-{
-	if (h.count(target) == 1)
-	{
-		return h[target];
-	}
-	if (target == "")
-	{
-		return 1;
-	}
-
-	int count{};
-
-	for (auto e : stringlist)
-	{
-		if (target.find(e) == 0)
-		{
-			const std::string subs = target.substr(e.length());
-			count += HowManyGenerate(subs, stringlist, h);
-		}
-	}
-
-	h[target] = count;
-	return count;
-}
-
+#include <vector>
 #include <list>
-using result = std::list<std::list<std::string>>;
+#include <string>
 
-result FindGenerate(std::string target, const std::vector<std::string>& stringlist)
+using string_list = std::list<std::string>;
+using result = std::list<string_list>;
+
+result FindGenerate2(
+	const std::string target, const string_list& stringlist
+)
 {
-	if (target == "")
-	{
-		return result{ {} };
-	}
-	result r;
+	std::vector<result> table(target.length() + 1);
 
-	for (auto e : stringlist)
+	table[0] = result{ {} };
+
+	for (unsigned int i = 0; i <= target.length(); ++i)
 	{
-		if (target.find(e) == 0)
+		for (auto e : stringlist)
 		{
-			const std::string subs = target.substr(e.length());
-			auto ret = FindGenerate(subs, stringlist);
-
-			for (auto e2 : ret)
+			if (target.substr(i, e.length()) == e)
 			{
-				e2.push_front(e);
+				if (i + e.length() <= target.length())
+				{
+					if (i + e.length() <= target.length())
+					{
+						for (auto e2 : table[i])
+						{
+							e2.push_back(e);
 
-				r.push_front(e2);
+							table[i + e.length()].push_back(e2);
+						}
+					}
+				}
 			}
 		}
 	}
 
-	return r;
+	return table[target.length()];
 }
 
-using result2 = std::list<std::list<std::string>>;
-using gen_history_list = std::map<std::string, result2>;
-
-result2 FindGenerate2(std::string target, const std::vector<std::string>& stringlist, gen_history_list& h)
-{
-	if (h.count(target) == 1)
-	{
-		return h[target];
-	}
-	if (target == "")
-	{
-		return result2{ {} };
-	}
-
-	result2 r;
-
-	for (auto e : stringlist)
-	{
-		if (target.find(e) == 0)
-		{
-			const std::string subs = target.substr(e.length());
-			auto ret = FindGenerate2(subs, stringlist, h);
-
-			for (auto e2 : ret)
-			{
-				e2.push_front(e);
-
-				r.push_front(e2);
-			}
-		}
-	}
-	h[target] = r;
-	return h[target];
-}
-
-void Print2(const result& r)
+void Print(const result& r)
 {
 	std::cout << "{ " << std::endl;
+
 	for (auto e1 : r)
 	{
-		std::cout << "\t{ ";
+		std::cout << "\t{";
 		for (auto e2 : e1)
 		{
 			std::cout << e2 << ", ";
 		}
-		std::cout << "}, " << std::endl;
+		std::cout << "}," << std::endl;
 	}
-
-	std::cout << "}" << std::endl;
+	std::cout << "}" << std::endl << std::endl;
 }
 
 
 
 int main()
 {
-	accum_history h;
+	std::cout << fibonacci1(4) << std::endl;
 
-	std::cout << CanAccumulate(900, { 7, 14 }, h) << std::endl;
-	h.clear();
-	std::cout << CanAccumulate(7, { 5,3,4,7 }, h) << std::endl;
-	h.clear();
-	std::cout << CanAccumulate(7, { 2,4 }, h) << std::endl;
+	std::cout << "-" << std::endl;
+	std::cout << FindWays(2, 3) << std::endl;
 
-	std::cout << "---HowAccumulate---" << std::endl;
-	Print(HowAccumulate(7, { 5, 3, 4, 7 }, std::make_shared<accum_history_map_shared>()).get());
-	Print(HowAccumulate(7, { 1, 7 }, std::make_shared<accum_history_map_shared>()).get());
-	Print(HowAccumulate(7, { 7, 14 }, std::make_shared<accum_history_map_shared>()).get());
+	std::cout << "--" << std::endl;
+	std::cout << CanAccumulate(8, { 2,3,5 });
 
-	std::cout << "----OptimizeAccumulate---" << std::endl;
-	Print(OptimizeAccumulate(7, { 5,3,4,7 }, std::make_shared<accum_history_map_shared>()).get());
-	Print(OptimizeAccumulate(7, { 1, 4 }, std::make_shared<accum_history_map_shared>()).get());
-	Print(OptimizeAccumulate(900, { 7, 14 }, std::make_shared<accum_history_map_shared>()).get());
-	Print(OptimizeAccumulate(1750, { 10, 50, 100, 500, 1000 }, std::make_shared<accum_history_map_shared>()).get());
+	std::cout << "---" << std::endl;
+	auto ret1 = HowAccumulate(8, { 2,3,5 });
+	std::cout << "{ ";
+	if (ret1 != nullptr)
+	{
+		for (auto e : *ret1)
+		{
+			std::cout << e << ", ";
+		}
+	}
+	std::cout << "}" << std::endl;
 
-	std::cout << "---Cangenerate---" << std::endl;
-	std::cout << CanGenerate("abcdef", { "ab", "abc", "cd", "def", "abcd" }) << std::endl;
+	std::cout << "----" << std::endl;
+	auto ret2 = OptimizeAccumulate(7, { 2,3,5 });
+	std::cout << "{ ";
+	if (ret2 != nullptr)
+	{
+		for (auto e : *ret2)
+		{
+			std::cout << e << ", ";
+		}
+	}
+	std::cout << " }" << std::endl;
 
-	std::cout << "---gen history---" << std::endl;
-	gen_history h2;
-	std::cout << CanGenerate2("abcdef", { "ab", "abc", "cd", "def", "abcd" }, h2) << std::endl;
+	std::cout << "-----" << std::endl;
+	std::cout <<
+		CanGenerate2("abcdef", { "ab","abc","cd","def","abcd" }) << std::endl;
+	std::cout << CanGenerate2("hello", { "a","b","c","d" }) << std::endl;
+	std::cout << CanGenerate2("", { "a","b","c","d" }) << std::endl;
 
-	std::cout << "---count string---" << std::endl;
-	std::cout << CanGenerate3("abcdef", { "ab", "abc", "cd", "def", "abcd" }) << std::endl;
+	std::cout << "------" << std::endl;
+	std::cout << HowManyGenerate2("abcdef", { "ab","abc","cd","def","abcd" }) << std::endl;
+	std::cout << HowManyGenerate2("hello", { "a","b","c","d" }) << std::endl;
+	std::cout << HowManyGenerate2("", { "a","b","c","d" }) << std::endl;
+	std::cout << HowManyGenerate2("hello", { "he","h","e","llo","hell" }) << std::endl;
 
-	std::cout << "---map count string---" << std::endl;
-	gen_history_map h3;
-	std::cout << HowManyGenerate("abcdef", { "ab", "abc", "cd", "def", "abcd" }, h3) << std::endl;
+	std::cout << "-------" << std::endl;
+	Print(FindGenerate2("abcdef", { "ab","abc","cd","def","abcd" }));
+	Print(FindGenerate2("hello", { "a","b","c","d" }));
+	Print(FindGenerate2("", { "a","b","c","d" }));
+	Print(FindGenerate2("hello", { "he","h","e","llo","hell"}));
 
-	std::cout << "--- ---" << std::endl;
-	Print2(FindGenerate("hello", { "he", "h", "e", "llo", "hell" }));
-
-	std::cout << "---- ----" << std::endl;
-	gen_history_list h4;
-	Print2(FindGenerate2("hello", { "he", "h", "e", "llo", "hell" }, h4));
 
 	return 0;
 }
