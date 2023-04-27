@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StudyMySelf2", "StudyMySelf
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileStream", "FileStream\FileStream.vcxproj", "{80EA1B38-3C8A-4280-903F-7F3BADEF2B3B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XML", "XML\XML.vcxproj", "{C8FF5B49-8EA5-4503-88ED-7739E56257AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{80EA1B38-3C8A-4280-903F-7F3BADEF2B3B}.Release|x64.Build.0 = Release|x64
 		{80EA1B38-3C8A-4280-903F-7F3BADEF2B3B}.Release|x86.ActiveCfg = Release|Win32
 		{80EA1B38-3C8A-4280-903F-7F3BADEF2B3B}.Release|x86.Build.0 = Release|Win32
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Debug|x64.ActiveCfg = Debug|x64
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Debug|x64.Build.0 = Debug|x64
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Debug|x86.ActiveCfg = Debug|Win32
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Debug|x86.Build.0 = Debug|Win32
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Release|x64.ActiveCfg = Release|x64
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Release|x64.Build.0 = Release|x64
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Release|x86.ActiveCfg = Release|Win32
+		{C8FF5B49-8EA5-4503-88ED-7739E56257AC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
