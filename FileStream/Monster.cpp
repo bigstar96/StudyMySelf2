@@ -9,7 +9,6 @@ std::ifstream& Monster::ReadBinary(std::ifstream& istream)
 	istream.read(reinterpret_cast<char*>(&mLevel), sizeof(int));
 	istream.read(reinterpret_cast<char*>(&mHP), sizeof(int));
 	istream.read(reinterpret_cast<char*>(&mMP), sizeof(int));
-
 	return istream;
 }
 
@@ -23,4 +22,14 @@ std::ofstream& Monster::WriteBinary(std::ofstream& ostream)
 	ostream.write(reinterpret_cast<char*>(&mMP), sizeof(int));
 
 	return ostream;
+}
+
+std::ifstream& operator>>(std::ifstream& istream, Monster& monster)
+{
+	return monster.ReadBinary(istream);
+}
+
+std::ofstream& operator<<(std::ofstream& ostream, Monster& monster)
+{
+	return monster.WriteBinary(ostream);
 }
