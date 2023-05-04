@@ -12,7 +12,8 @@ public:
 	int				y;
 	int				w;
 	int				h;
-
+	
+	Sprite() : n{}, x{}, y{}, w{}, h{}{}
 };
 
 void LoadXML(const char* filename, std::vector<Sprite>& sprites)
@@ -82,7 +83,7 @@ int main()
 {
 	std::vector<Sprite> mySprites;
 
-	LoadXML("XML/mydata.xml", mySprites);
+	LoadXML("XML2/mydata.xml", mySprites);
 
 	for (auto elem : mySprites)
 	{
